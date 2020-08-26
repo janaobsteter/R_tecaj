@@ -1,0 +1,365 @@
+---
+title: "ModulA"
+author: "Jana Obšteter"
+date: "August 25, 2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Podatkovni tipi
+
+R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spremenljivko vsakega izmed tipov.
+
+### Cela števila
+```{r}
+# Ustvarimo spremenljivko "stevilo" z vrednostjo 10
+stevilo <- 10
+# Izpišimo "stevilo"
+stevilo
+# Preverimo tip spremenljivke
+class(stevilo)
+```
+
+R cela števila ustvari kot tip "numeric" in ne "integer". Če želimo, da je spremenljivka eksplicitno tip "integer", jo moramo pretvoriti.
+```{r}
+# Ustvarimo spremenljivko "stevilo" z vrednostjo 10 kot "integer"
+stevilo <- as.integer(10)
+# Preverimo tip spremenljivke
+class(stevilo)
+```
+Eksplicitno lahko tip "integer" ustvarimo tudi z dodatkom črke "L" na koncu celega števila.
+```{r}
+# Direktno ustvarimo "integer" spremenljivko "stevilo" z vrednostjo 10
+stevilo <- 10L
+class(stevilo)
+```
+
+
+### Realna števila
+```{r}
+# Ustvarimo spremenljivko "realnoStevilo" z vrednostjo 3.52
+realnoStevilo <- 3.52
+# Izpišimo "realnoStevilo"
+realnoStevilo
+# Preverimo tip spremenljivke
+class(realnoStevilo)
+```
+
+### Znaki
+```{r}
+# Ustvarimo spremenljivko "beseda" z vrednostjo "jagoda"
+beseda <- "jagoda"
+# Izpišimo spremenljivko "beseda"
+beseda
+# Preverimo tip spremenljivke
+class(beseda)
+```
+
+### Logični vektor
+```{r}
+# Ustvarimo spremenljivko "logicnaVrednost" z vrednostjo TRUE
+logicnaVrednost <- TRUE
+# Izpišimo "logicnaVrednost"
+logicnaVrednost
+# Preverimo tip spremenljivke
+class(logicnaVrednost)
+```
+
+### Faktor
+```{r}
+# Ustvarimo spremenljivko "raven" z vrednostjo "poletje"
+raven <- as.factor("poletje")
+# Izpišimo "raven"
+raven
+# Preverimo tip spremenljivke
+class(raven)
+```
+
+### Manjkajoča vrednost
+```{r}
+# Ustvarimo spremenljivko "manjkaVrednost" z manjkajočo vrednostjo
+manjkaVrednost <- NA
+# Izpišimo "manjkaVrednost"
+manjkaVrednost
+# Preverimo tip spremenljivke
+class(manjkaVrednost)
+```
+
+### Prazen element
+```{r}
+# Ustvarimo prazen element "prazenElement"
+prazenElement <- NULL
+# Izpišimo "prazenElement"
+prazenElement
+# Preverimo tip spremenljivke
+class(prazenElement)
+```
+
+
+## Podatkovne strukture
+V R-u lahko ustvarimo različne podatkovne strukture. V nadaljevanju bomo ustvarili vsako izmed struktur.
+
+### Vektor
+Vektor ustvarimo s funkcijo c().
+```{r}
+# Ustvarimo številski vektor "stevila" z vrednostmi 1, 10 in 100
+stevila <- c(1, 10, 100)
+# Izpišimo vektor
+stevila
+```
+Vektor številskega zaporedja lahko ustvarimo tudi  z navedbo razpona številk.
+```{r}
+# Ustvarimo številski vektor "meseci" s številkami mesecev 1 do 12
+meseci <- 1:12
+# Izpišimo vektor
+meseci
+```
+Vektorje znakov prav tako ustvarimo s funkcijo c().
+```{r}
+# Ustvarimo vektor znakov "letniCasi" z letnimi časi
+letniCasi <- c("pomlad", "poletje", "jesen", "zima")
+# Izpišimo vektor
+letniCasi
+
+```
+Elemente vektorjev izberemo z indeksom v oglatih oklepajih.
+```{r}
+# Izberimo drugi element vektorja "letniCasi"
+letniCasi[2]
+```
+
+
+
+### Seznam
+Seznam ustvarimo s funkcijo list().
+```{r}
+# Ustvarimo seznam "leto", ki vključuje vektorje "meseci" in "letniCasi" iz prejsnjega koraka in število 2020
+leto <- list(meseci, letniCasi, 2020)
+# Izpišimo seznam "leto"
+leto
+```
+```{r}
+# Preverimo dolžino seznama "leto""
+length(leto)
+
+```
+Elemente seznama izberemo z indeksom v dvojnih oglatih oklepajih.
+```{r}
+# Izberemo prvi element seznama "leto"
+leto[[1]]
+```
+```{r}
+
+# Ker je prvi element vektor, izberimo še peti element znotraj tega
+leto[[1]][5]
+```
+### Podatkovni okvir / tabela
+Podatkovni okvir oz. tabelo ustvarimo s funkcijo data.frame().
+```{r}
+# Ustvarimo tabelo "povpTemp" z letnimi časi in povprečno temperature za vsakega izmed njih
+# Predpostavimo, da je povprečna temperatura pomladi je 18, poleti 24, jeseni 13 in pozimi 5
+povpTemp <- data.frame(LetniCas = letniCasi, temp = c(18, 24, 13, 5))
+# Izpišimo tabelo
+print(povpTemp)
+```
+Prvih ali zadnjih par vrstic tabele izpišemo s funkcijo head() ali tail().
+```{r}
+# Izpišimo prvih par vrstic tabele "povpTemp"
+head(povpTemp)
+```
+Privzeta vrednost funkcije head je 6 vrstic, zato izpiše celotno tabelo. Obnašanje funkcije head() lahko modificiramo s parametrom n, kjer navedemo število vrstic.
+```{r}
+# Izpišimo prvi dve vrstici tabele "povpTemp"
+head(povpTemp, n=2)
+```
+Število vrstic in stolpcev preverimo s funkcijama nrow() in ncol().
+```{r}
+# Preverimo število vrstic in stolpcev tabele "povpTemp"
+nrow(povpTemp)
+ncol(povpTemp)
+```
+Imena vrstic in stolpcev preverimo s funkcijama rownames() in colnames().
+```{r}
+# Preverimo imena vrstic in stolpcev tabele "povpTemp"
+rownames(povpTemp)
+colnames(povpTemp)
+```
+
+Elemente tabele izberemo z indeksom vrstice/stolpca v oglatih oklepajih.
+```{r}
+# Izberimo prvo vrednost v prvem stolpcu tabele "povpTemp"
+povpTemp[1,1]
+```
+```{r}
+# Izberimo prvo vrstico tabele "povpTemp"
+povpTemp[1,]
+```
+```{r}
+# Izberimo prvi stolpec tabele "povpTemp"
+povpTemp[,1]
+```
+Stolpce tabel lahko izberemo tudi po imenu.
+```{r}
+# Izberimo stolpec <LetniCasi> v tabeli "povpTemp"
+povpTemp$LetniCas
+```
+### Matrika
+Matriko ustvarimo s funkcijo matrix().
+```{r}
+# Ustvarimo matriko "vrednosti" z vrednostmi 1:20, štirimi vrsticami in petimi stolpci
+vrednosti <- matrix(1:20, nrow=4, ncol=5)
+# Izpišimo matriko
+vrednosti
+```
+Elemente matrike izberemo z indeksom vrstice/stolpca v oglatih oklepajih (enako kot tabele).
+```{r}
+# Izberimo element v drugi vrstici tretjega stolpca matrike vrednosti
+vrednosti[2, 3]
+```
+### Polje
+Polje ustvarimo s funkcijo array().
+```{r}
+# Ustvarimo polje povpTempLeto s povprečnimi letnimi temperaturami v letnih časih v dveh različnih letih.
+# Povprečna temparatura je vektor vrednosti 18, 24, 13, 5, 15, 27, 12, 7; leti sta 2018 in 2019
+# Dimenzije: x = letni čas (4), y = povprečna temperatura (1), z = leto (2)
+povpTempLeto <- array(c(18, 24, 13, 5, 15, 27, 12, 7), 
+                      dim=c(4, 1, 2), 
+                      dimnames=list(letniCasi,
+                                    "povpTemp",
+                                    c(2018, 2019)))
+# Izpišimo polje "povpTempLeto"
+povpTempLeto
+```
+Dimenzije polja preverimo s funkcijo dim(), strukturo ps s funkcijo str().
+```{r}
+# Preverimo dimenzije polja "povpTempLeto"
+dim(povpTempLeto)
+```
+
+```{r}
+# Preverimo strukturo polja "povpTempLeto"
+str(povpTempLeto)
+```
+## Osnovne operacije
+Osnovni računski operatorji v R-u so + za seštevanje, - za odštevanje, * za množenje, / za deljenje.
+
+Osnovne računske operacije lahko apliciramo na števila ali vektorje (enakih dolžin).
+```{r}
+# Ustvarimo spremenljivki "a" z vrednostjo 2 in "b" z vrednostjo 11.2
+a <- 2
+b <- 11.2
+# Ustvarimo spremenvljivko "vsota" kot vsoto a in b
+(vsota <- a + b)
+# Ustvarimo spremenvljivko "razlike" kot vsoto a in b
+(razlika <- a - b)
+# Ustvarimo spremenvljivko "zmnožek" kot vsoto a in b
+(zmnožek <- a * b)
+# Ustvarimo spremenvljivko "kvocient" kot vsoto a in b
+(kvocient <- a / b)
+```
+Ponovimo vajo z vektorji.
+```{r}
+# Ustvarimo vektorja "a" z vrednostmi c(1, 2, 3) in "b" z vrednostmi c(3.12, 5.44, 10)
+a <- c(1, 2, 3) 
+b <- c(3.12, 5.44, 10)
+# Ustvarimo spremenvljivko "vsota" kot vsoto a in b
+(vsota <- a + b)
+# Ustvarimo spremenvljivko "razlike" kot vsoto a in b
+(razlika <- a - b)
+# Ustvarimo spremenvljivko "zmnožek" kot vsoto a in b
+(zmnožek <- a * b)
+# Ustvarimo spremenvljivko "kvocient" kot vsoto a in b
+(kvocient <- a / b)
+```
+
+R ima posebej operator za ostanek pri deljenju %%, "integer" deljenje %/% in množenje matrik %*%.
+```{r}
+# Preverimo ostanek pri deljenju 10 / 3
+10 %% 3
+# Preverimo celoštevilski kvocient deljenja 10 / 3
+10 %/% 3
+# Ustvarimo matriko m1 z vrednostmi 1:9 in tremi vrstiami ter matriko m2 z vrednostmi 9:18 in tremi vrsticami
+m1 <- matrix(1:9, nrow=3)
+m2 <- matrix(10:18, nrow=3)
+m1 %*% m2
+```
+
+V R-u lahko uporabimo tudi operatorje primerjav, ki vrnejo logične vrednosti.
+```{r}
+# Preverimo, ali je 5 večje od 3
+5 > 3
+# Preverimo, ali je 5 enako 3
+5 == 3
+# Preverimo, ali 5 ni enako 3
+5 != 3
+# Preverimo, ali vektor c(1, 2, 3) vsebuje 4
+4 %in% c(1,2,3)
+```
+Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenvljike. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrov sep navedemo željeni separator.
+```{r}
+# Združimo besedi Janez in Novak s presledkom
+paste("Janez", "Novak", sep=" ")
+```
+Lahko uporabimo tudi funkcijo paste0(), ki ima kot privzet separator "".
+```{r}
+# Združimo besedi Janez in Novak brez separatorja
+paste0("Janez", "Novak")
+```
+R vključuje kopico vgrajenih funkcij za najrazličnejše pogosto uporabljene operacije. Poglejmo si nekaj osnovnih funkcij.
+```{r}
+# Ustvarimo vektor "stevila" z vrednostmi 1:10
+stevila <- 1:10
+# Seštejmo elemente vektorja s funkcijo sum()
+(sum(stevila))
+```
+```{r}
+#Izračunajmo povprečje in varianco vektorja "stevila" s funkcijo mean() in var()
+(mean(stevila))
+(var(stevila))
+```
+
+```{r}
+# Preverimo dolžino vektorja stevila s funkcijo length()
+(length(stevila))
+# Preverimo minimalno in maksimalno vrednost vektorja "stevila" s funkcijama min() in max()
+(min(stevila))
+(max(stevila))
+```
+
+Pri računskih operacijah lahko naletimo tudi na manjkajoče vrednosti, ki jih privzeto ne odstrani.
+```{r}
+# Ustvarimo vektor vrednosti <- c(1, 2, 3, 4, NA)
+vrednosti <- c(1, 2, 3, 4, NA)
+# Seštejmo vektor vrednosti
+sum(vrednosti)
+```
+R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vrednosti. V pomoči za funkcije lahko preverimo, kako prilagoditi obnašanje funkcije.
+```{r}
+# Preverimo pomoč za funkcijo sum()
+?sum()
+# Funkcija sum() vključuje parameter na.rm, ki nakazuje, ali naj bodo manjkajoče vrednosti odstranjene
+# Ker želimo odstraniti manjkajočih vrednosti, nastavimo parameter na.rm na FALSE
+(sum(vrednosti, na.rm = TRUE))
+```
+
+## Osnove dela z datotekami
+### Nastavitev delovnega imenika
+V R-u lahko nastavimo delovni imenik. Ta postane privzeta pot za branje in pisanje datotek.
+```{r}
+# Nastavimo delovni imenik na lokalno mapo z datotekami
+setwd("/home/jana/Documents/Delavnice/R/Material/")
+```
+
+## Branje datotek
+Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
+V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele.
+```{r}
+# Preberimo datoteko TezaMozganov_Metulji.csv
+metulji <- read.csv("TezaMozganov_Metulji.csv")
+```
+
