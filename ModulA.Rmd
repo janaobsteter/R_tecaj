@@ -69,6 +69,12 @@ logicnaVrednost
 # Preverimo tip spremenljivke
 class(logicnaVrednost)
 ```
+Z logičnimi vrednostmi lahko tudi računamo, pri čemer je vrednost TRUE vredna 1, vrednost FALSE pa 0.
+```{r}
+# Sesštejmo vrednosti TRUE in TRUE
+TRUE + TRUE
+```
+
 
 ### Faktor
 ```{r}
@@ -289,17 +295,34 @@ m2 <- matrix(10:18, nrow=3)
 m1 %*% m2
 ```
 
-V R-u lahko uporabimo tudi operatorje primerjav, ki vrnejo logične vrednosti.
+V R-u lahko uporabimo tudi operatorje primerjav, ki vrnejo logične vrednosti. Primerjamo lahko katerikoli podatkovni tip ali strukturo. 
 ```{r}
+# Ustvarimo spremenljivko a z vrednotjo 5
+a <- 5
 # Preverimo, ali je 5 večje od 3
-5 > 3
-# Preverimo, ali je 5 enako 3
-5 == 3
-# Preverimo, ali 5 ni enako 3
-5 != 3
-# Preverimo, ali vektor c(1, 2, 3) vsebuje 4
-4 %in% c(1,2,3)
+a > 3
 ```
+```{r}
+# Preverimo, ali je 5 enako 3
+a == 3
+```
+```{r}
+# Preverimo, ali 5 ni enako 3
+a != 3
+```
+```{r}
+# Preverimo, ali vektor c(1, 2, 3) vsebuje 4
+a %in% c(1,2,3)
+```
+Operatorje primerjav lahko uporabimo tudi za druge podatkovne tipe.
+```{r}
+# Previmo, koliko vrednosti a (5) je v vektorju vrednosti = c(1, 3, 5, 4, 5, 7)
+vrednosti = c(1, 3, 5, 4, 5, 7)
+sum(vrednosti == a)
+```
+
+
+
 Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenvljike. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrov sep navedemo željeni separator.
 ```{r}
 # Združimo besedi Janez in Novak s presledkom
@@ -350,9 +373,15 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 ## Osnove dela z datotekami
 ### Nastavitev delovnega imenika
 V R-u lahko nastavimo delovni imenik. Ta postane privzeta pot za branje in pisanje datotek.
-```{r}
+```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-setwd("/home/jana/Documents/Delavnice/R/Material/")
+workingDir <- "/home/jana/"
+#setwd(workingDir)
+opts_knit$set(root.dir = "/home/jana/")
+```
+
+```{r}
+getwd()
 ```
 
 ## Branje datotek
