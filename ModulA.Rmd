@@ -388,7 +388,93 @@ getwd()
 Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
 V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele.
 ```{r}
-# Preberimo datoteko TezaMozganov_Metulji.csv
-metulji <- read.csv("TezaMozganov_Metulji.csv")
+# Preberimo datoteko ZivljenjskaDoba_mali.csv
+zivDoba <- read.csv("/home/jana/Documents/Delavnice/R/Material/ZivljenjskaDoba_mali.csv")
 ```
+
+Najprej preverimo, ali so podatki prebrani pravilno.
+```{r}
+# Preverimo prvih par vrstic prebrane tabele s funkcijo head()
+head(zivDoba)
+```
+```{r}
+# Preverimo število vrstic in število stolpcev
+nrow(zivDoba)
+ncol(zivDoba)
+```
+S funkcijo colnames(objekt)[indeksStolpca] lahko preimenujemo stolpce.
+```{r}
+# Preimenujmo stolpec "Country" v "Drzava"
+colnames(zivDoba)[1] <- "Drzava"
+```
+Vrstice tabele izberemo z indeksom v oglatih oklepajih. Stolpce tabele lahko prav tako izberemo z indeksom v oglatih oklepajih ali znakom $ in imenom stolpca. Če v indeksu ne navedemo številke stolpca (ali vrstice), R izbere vse stolpce (vrstice).
+```{r}
+# Izberimo tretjo vrstico tabele zivDoba z indeksom
+zivDoba[3,]
+```
+```{r}
+# Izberimo tretji stolpec tabele zivDoba z indeksom [vrstica, stolpec]
+zivDoba[, 3]
+# Izberimo tretji stolpcev tabele zivDoba z imenom (Status)
+zivDoba$Status
+
+```
+
+
+
+S funkcijo table preverimo zastopanost posamezne spremenljivke znotraj stolpcev, pri čemer je funkcija bolj uporabna za kategorične spremenljivke.
+```{r}
+# Preverimo, koliko podatkov (vrstic) imamo po državi s funkcijo table()
+table(zivDoba$Drzava)
+
+```
+
+Za preverjanje stolpcev v numeričnih stolpcev je bolje uporabiti funkcijo summary().
+```{r}
+# Preverimo vsebnost stolpca ZivDoba s funkcijo summary
+summary(zivDoba$ZivDoba)
+```
+
+V tabeli lahko uporabimo operatorje primerjav, da izberemo samo določene vrstice ali vrednosti.
+```{r}
+# Izberimo vse vrstice tabele, v katerih je vrednost spremenljivke ZivDoba večja od 77
+zivDoba[zivDoba$ZivDoba > 77,]
+```
+```{r}
+# Izberimo vse vrstice, v katerih je vrednost stolpca "Drzava" enaka "France"
+zivDoba[zivDoba$Drzava == "France",]
+```
+
+Tabelam lahko tudi dodajamo in odstranjujemo vrstice in stolpce. Stolpce in vrstice odstranjujemo z znakom - (minus) ter navedbo indeksa.
+```{r}
+# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba
+zivDoba_nov <- zivDoba[, -10]
+# Preverimo imena stolpcev nove tabele s funkcijo colnames()
+colnames(zivDoba_nov)
+
+```
+Tabelam lahko tudi dodajamo vrstice ali stolpce z navedbo indeksa vrstice/stolpca ali imena stolpca ter vsebino.
+```{r}
+# Ustvarimo nov stolpec "Celina" v tabeli zivDoba in mu pripišimo vrednost "Evropa"
+zivDoba$Celina <- "Evropa"
+# Preverimo tabelo
+head(zivDoba)
+```
+V tabelah lahko tudi spreminjamo vrednost. Stolpce, vrstica ali polja, katerim želimo spremeniti vrednost, lahko izberemo z indeksom, imenom stolpca ali pa operatorji primerjav (če želimo spremeniti le del vrednosti, ki ustrezajo nekemu pogoju).
+```{r}
+# Vse države v tabeli zivDob ne ležijo v Evropi, in sicer "Egypt", "Brazil", "Chile" in "Peru"
+# Naprej v vsrticah z vrednostjo "Egypt" spremenimo vrednost v stolpcu "Celina" na "Afrika"
+# 
+zivDoba$Celina[zivDoba$Drzava == "Egypt"] <- "Afrika"
+```
+```{r}
+#"Brazil", "Chile" in "Peru" ležijo v Južni Ameriki
+# Tem vrsticam spremenimo vrednost v stolpcu "Celina" na JuznaAmerika
+zivDoba$Celina[zivDoba$Drzava %in% c("Brazil", "Peru", "Chile")] <- "JuznaAmerika"
+```
+```{r}
+# Prevrimo zastopanost vrednosti v stolpcu "Celina"
+table(zivDoba$Celina)
+```
+
 
