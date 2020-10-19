@@ -7,9 +7,6 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Podatkovni tipi
 
@@ -323,7 +320,7 @@ sum(vrednosti == a)
 
 
 
-Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenvljike. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrov sep navedemo željeni separator.
+Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenljivke. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrom sep navedemo željeni separator.
 ```{r}
 # Združimo besedi Janez in Novak s presledkom
 paste("Janez", "Novak", sep=" ")
@@ -375,9 +372,10 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 V R-u lahko nastavimo delovni imenik. Ta postane privzeta pot za branje in pisanje datotek.
 ```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-workingDir <- "/home/jana/"
-#setwd(workingDir)
-opts_knit$set(root.dir = "/home/jana/")
+workingDir <- "/home/jana/Documents/Delavnice/R_tecaj/Material/"
+knitr::opts_knit$set(root.dir = '/home/jana/Documents/Delavnice/R_tecaj/Material/')
+setwd(workingDir)
+
 ```
 
 ```{r}
@@ -386,16 +384,24 @@ getwd()
 
 ## Branje datotek
 Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
-V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele.
+V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je ZivljenjskaDoba.csv, ki vsebuje podatke o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
 ```{r}
 # Preberimo datoteko ZivljenjskaDoba_mali.csv
-zivDoba <- read.csv("/home/jana/Documents/Delavnice/R/Material/ZivljenjskaDoba_mali.csv")
+zivDoba <- read.csv("ZivljenjskaDoba.csv")
 ```
 
 Najprej preverimo, ali so podatki prebrani pravilno.
 ```{r}
 # Preverimo prvih par vrstic prebrane tabele s funkcijo head()
 head(zivDoba)
+```
+```{r}
+# Preverimo zadnjih par vrstic prebrane tabele s funkcijo tail()
+tail(zivDoba)
+```
+```{r}
+# Preverimo strukturo prebrane tabele s funkcijo str()
+str(zivDoba)
 ```
 ```{r}
 # Preverimo število vrstic in število stolpcev
@@ -415,6 +421,8 @@ zivDoba[3,]
 ```{r}
 # Izberimo tretji stolpec tabele zivDoba z indeksom [vrstica, stolpec]
 zivDoba[, 3]
+```
+```{r}
 # Izberimo tretji stolpcev tabele zivDoba z imenom (Status)
 zivDoba$Status
 
@@ -445,11 +453,30 @@ zivDoba[zivDoba$ZivDoba > 77,]
 zivDoba[zivDoba$Drzava == "France",]
 ```
 
+```{r}
+# Ustvarimo vektor 'ospiceFR', v katerega zberemo podatke o letu in pojavnosti ošpic v Franciji
+ospiceFR <- zivDoba[zivDoba$Drzava == "France", c("Leto", "Ospice")]
+head(ospiceFR)
+# Preimenuj drugi stolpceviz 'Ospice' v 'ospiceFR'
+colnames(ospiceFR)[2] <- 'ospiceFR'
+head(ospiceFR)
+# Ustvarimo vektor 'ospiceBR', v katerega zberemo podatke o letu in pojavnosti ošpic v Braziliji
+ospiceBR <- zivDoba[zivDoba$Drzava == "Brazil", c("Leto", "Ospice")]
+# Preimenuj drugi stolpceviz 'Ospice' v 'ospiceBR'
+colnames(ospiceBR)[2] <- 'ospiceBR'
+```
+
+```{r}
+# Ustvarimo vektor 'ospiceAU' in' ospiceEG', v katerega zberemo podatke o pojavnosti ošpic v Avstriji in Egiptu
+ospiceAU <- zivDoba$Ospice[zivDoba$Drzava == "Austria"]
+ospiceEG <- zivDoba$Ospice[zivDoba$Drzava == "Egypt"]
+```
+
 Tabelam lahko tudi dodajamo in odstranjujemo vrstice in stolpce. Stolpce in vrstice odstranjujemo z znakom - (minus) ter navedbo indeksa.
 ```{r}
-# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba
+# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba, novo ustvarjeno tabelo poimenujemo zivDoba_nov
 zivDoba_nov <- zivDoba[, -10]
-# Preverimo imena stolpcev nove tabele s funkcijo colnames()
+# Preverimo imena stolpcev nove tabele zivDoba_nov s funkcijo colnames()
 colnames(zivDoba_nov)
 
 ```
@@ -478,3 +505,40 @@ table(zivDoba$Celina)
 ```
 
 
+
+S funkcijo cbind() lahko povežemo vektorje v novo tabelo. 
+
+```{r}
+# S funkcijo cbind() združimo zgoraj ustvarjene vektorje 'ospiceFR', 'ospiceAU' in 'ospiceEG' v novo tabelo 'ospice'
+ospice <- cbind(ospiceFR, ospiceAU, ospiceEG)
+# Preverimo novonastalo tablelo
+head(ospice)
+```
+S funkcijo merge() lahko združujemo tabele na podlagi skupnega ključa.
+```{r}
+# S funkcijo merge() združimo zgoraj ustvarjene vektorje 'ospiceFR' in 'ospiceBR' na podlagi spremenljivke 'Leto' v novo tabelo 'ospiceMerged'
+ospiceMerged <- merge(ospiceFR, ospiceBR, by="Leto")
+# Preverimo novonastalo tablelo
+head(ospiceMerged)
+```
+
+S funkcijo melt() iz paketa reshape lahko spreminjamo razporeditev podatkov stolpce in vrstice.
+```{r}
+# Recimo, da želimo imeti en stolpec z vsemi vrednostmi za hepatitisB, polio in HIV za vse države, v drugem stolpcu pa bi imeli spremenljivko, za katero bolezen gre
+# Takšno organizacijo podatkov ponavadi potrebujemo za grafično prikazovanje podatkov
+# Najprej izberemo željene stolpce celotne tabele zivDoba - Drzava, Leto, HepatitisB, HIV in Polio
+bolezni <- zivDoba[, c("Drzava", "Leto", "HepatitisB", "HIV", "Polio")]
+# Preverimo novonastalo tablelo
+head(bolezni)
+```
+
+```{r}
+# S funkcijo melt() iz paketa reshape preuredumo tabelo, tako da sta naša ključa Leto in Drzava (stolpca bosta ostala nespremenjena)
+# Novo nastalo tabelo poimenujemo bolezni_melt
+library(reshape)
+bolezni_melt <- melt(bolezni, id.vars = c("Leto", "Drzava"))
+# Preveimo novonastalo tabelo s funkcijo head()
+head(bolezni_melt)
+#Preverimo vrednosti v stolpcu 'variable' tabele bolezni_melt
+table(bolezni_melt$variable)
+```
