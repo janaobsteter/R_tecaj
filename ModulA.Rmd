@@ -249,7 +249,8 @@ dim(povpTempLeto)
 str(povpTempLeto)
 ```
 ## Osnovne operacije
-Osnovni računski operatorji v R-u so + za seštevanje, - za odštevanje, * za množenje, / za deljenje.
+### Osnovni aritmetični operatorji
+Osnovni aritmetični operatorji v R-u so + za seštevanje, - za odštevanje, * za množenje, / za deljenje.
 
 Osnovne računske operacije lahko apliciramo na števila ali vektorje (enakih dolžin).
 ```{r}
@@ -280,7 +281,7 @@ b <- c(3.12, 5.44, 10)
 (kvocient <- a / b)
 ```
 
-R ima posebej operator za ostanek pri deljenju %%, "integer" deljenje %/% in množenje matrik %*%.
+R ima posebej operator za ostanek pri deljenju %%, celoštevilsko deljenje %/% in množenje matrik %*%.
 ```{r}
 # Preverimo ostanek pri deljenju 10 / 3
 10 %% 3
@@ -292,6 +293,7 @@ m2 <- matrix(10:18, nrow=3)
 m1 %*% m2
 ```
 
+### Primerjalni operatorji
 V R-u lahko uporabimo tudi operatorje primerjav, ki vrnejo logične vrednosti. Primerjamo lahko katerikoli podatkovni tip ali strukturo. 
 ```{r}
 # Ustvarimo spremenljivko a z vrednotjo 5
@@ -311,7 +313,7 @@ a != 3
 # Preverimo, ali vektor c(1, 2, 3) vsebuje 4
 a %in% c(1,2,3)
 ```
-Operatorje primerjav lahko uporabimo tudi za druge podatkovne tipe.
+Operatorje primerjav lahko uporabimo tudi za druge podatkovne tipe. Logične vrednosti so interne zapisane kot 1 (TRUE) in 0 (FALSE), tako da jih lahko tudi seštevamo.
 ```{r}
 # Previmo, koliko vrednosti a (5) je v vektorju vrednosti = c(1, 3, 5, 4, 5, 7)
 vrednosti = c(1, 3, 5, 4, 5, 7)
@@ -319,17 +321,18 @@ sum(vrednosti == a)
 ```
 
 
-
-Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenljivke. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrom sep navedemo željeni separator.
+### "Operatorji" za znake
+Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenljivke. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrom sep navedemo željeno ločilo
 ```{r}
 # Združimo besedi Janez in Novak s presledkom
 paste("Janez", "Novak", sep=" ")
 ```
-Lahko uporabimo tudi funkcijo paste0(), ki ima kot privzet separator "".
+Lahko uporabimo tudi funkcijo paste0(), ki ima kot privzeto ločilo "".
 ```{r}
 # Združimo besedi Janez in Novak brez separatorja
 paste0("Janez", "Novak")
 ```
+### Osnovne vgrajene funkcije
 R vključuje kopico vgrajenih funkcij za najrazličnejše pogosto uporabljene operacije. Poglejmo si nekaj osnovnih funkcij.
 ```{r}
 # Ustvarimo vektor "stevila" z vrednostmi 1:10
@@ -351,7 +354,7 @@ stevila <- 1:10
 (max(stevila))
 ```
 
-Pri računskih operacijah lahko naletimo tudi na manjkajoče vrednosti, ki jih privzeto ne odstrani.
+Pri računskih operacijah lahko naletimo tudi na manjkajoče vrednosti, ki jih kot privzeto R ne odstrani.
 ```{r}
 # Ustvarimo vektor vrednosti <- c(1, 2, 3, 4, NA)
 vrednosti <- c(1, 2, 3, 4, NA)
@@ -369,11 +372,11 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 
 ## Osnove dela z datotekami
 ### Nastavitev delovnega imenika
-V R-u lahko nastavimo delovni imenik. Ta postane privzeta pot za branje in pisanje datotek.
+V R-u lahko nastavimo delovni imenik s funkcijo setwd(). Ta postane privzeta pot za branje in pisanje datotek.
 ```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-workingDir <- "/home/jana/Documents/Delavnice/R_tecaj/Material/"
-knitr::opts_knit$set(root.dir = '/home/jana/Documents/Delavnice/R_tecaj/Material/')
+workingDir <- "/home/jana/Documents/Delavnice/R/Material/"
+knitr::opts_knit$set(root.dir = '/home/jana/Documents/Delavnice/R/Material/')
 setwd(workingDir)
 
 ```
@@ -382,15 +385,19 @@ setwd(workingDir)
 getwd()
 ```
 
-## Branje datotek
+## Branje datotek, lastnosti prebranih podatkov in pisanje datotek
+Na primeru bomo pogledali, kako v R prebrati tabelo, izluščiti lastnosti podatkov, preurediti tabelo in zapisati rezultat.
+
+### Branje datotek
 Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
-V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je ZivljenjskaDoba.csv, ki vsebuje podatke o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
+V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je ZivljenjskaDoba.csv, ki vsebuje podatke zbrane s strani organizacija WHO o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
 ```{r}
 # Preberimo datoteko ZivljenjskaDoba_mali.csv
 zivDoba <- read.csv("ZivljenjskaDoba.csv")
 ```
 
-Najprej preverimo, ali so podatki prebrani pravilno.
+### Lastnosti prebranih podatkov
+Najprej preverimo, ali so podatki prebrani pravilno. Ponavadi pogledamo prvih par vrstic s funkcijo head(), zadnjih par s funkcijo tail() in pa strukturo podatkov s funkcijo str().
 ```{r}
 # Preverimo prvih par vrstic prebrane tabele s funkcijo head()
 head(zivDoba)
@@ -403,11 +410,13 @@ tail(zivDoba)
 # Preverimo strukturo prebrane tabele s funkcijo str()
 str(zivDoba)
 ```
+Preverimo lahko tudi število prebranih stolpcev in vrstic s funkcijama ncol() in nrow().
 ```{r}
 # Preverimo število vrstic in število stolpcev
 nrow(zivDoba)
 ncol(zivDoba)
 ```
+
 S funkcijo colnames(objekt)[indeksStolpca] lahko preimenujemo stolpce.
 ```{r}
 # Preimenujmo stolpec "Country" v "Drzava"
@@ -430,14 +439,14 @@ zivDoba$Status
 
 
 
-S funkcijo table preverimo zastopanost posamezne spremenljivke znotraj stolpcev, pri čemer je funkcija bolj uporabna za kategorične spremenljivke.
+S funkcijo table() preverimo zastopanost posamezne spremenljivke znotraj stolpcev, pri čemer je funkcija bolj uporabna za kategorične spremenljivke.
 ```{r}
 # Preverimo, koliko podatkov (vrstic) imamo po državi s funkcijo table()
 table(zivDoba$Drzava)
 
 ```
 
-Za preverjanje stolpcev v numeričnih stolpcev je bolje uporabiti funkcijo summary().
+Za preverjanje stolpcev v numeričnih stolpcev je bolje uporabiti funkcijo summary(). Ta vrne minimalno (in maksimalno) vrednost spremenljivke, prvi (in tretji) kvantil in povprečje.
 ```{r}
 # Preverimo vsebnost stolpca ZivDoba s funkcijo summary
 summary(zivDoba$ZivDoba)
@@ -453,6 +462,18 @@ zivDoba[zivDoba$ZivDoba > 77,]
 zivDoba[zivDoba$Drzava == "France",]
 ```
 
+
+Tabelam lahko tudi dodajamo in odstranjujemo vrstice in stolpce. Stolpce in vrstice odstranjujemo z znakom - (minus) ter navedbo indeksa.
+```{r}
+# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba, novo ustvarjeno tabelo poimenujemo zivDoba_nov
+zivDoba_nov <- zivDoba[, -10]
+# Preverimo imena stolpcev nove tabele zivDoba_nov s funkcijo colnames()
+colnames(zivDoba_nov)
+
+```
+
+
+Izbrane vrstice in/ali stolpce lahko tudi zapišemo v nov objekt oz. tabelo.
 ```{r}
 # Ustvarimo vektor 'ospiceFR', v katerega zberemo podatke o letu in pojavnosti ošpic v Franciji
 ospiceFR <- zivDoba[zivDoba$Drzava == "France", c("Leto", "Ospice")]
@@ -472,14 +493,6 @@ ospiceAU <- zivDoba$Ospice[zivDoba$Drzava == "Austria"]
 ospiceEG <- zivDoba$Ospice[zivDoba$Drzava == "Egypt"]
 ```
 
-Tabelam lahko tudi dodajamo in odstranjujemo vrstice in stolpce. Stolpce in vrstice odstranjujemo z znakom - (minus) ter navedbo indeksa.
-```{r}
-# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba, novo ustvarjeno tabelo poimenujemo zivDoba_nov
-zivDoba_nov <- zivDoba[, -10]
-# Preverimo imena stolpcev nove tabele zivDoba_nov s funkcijo colnames()
-colnames(zivDoba_nov)
-
-```
 Tabelam lahko tudi dodajamo vrstice ali stolpce z navedbo indeksa vrstice/stolpca ali imena stolpca ter vsebino.
 ```{r}
 # Ustvarimo nov stolpec "Celina" v tabeli zivDoba in mu pripišimo vrednost "Evropa"
@@ -522,7 +535,7 @@ ospiceMerged <- merge(ospiceFR, ospiceBR, by="Leto")
 head(ospiceMerged)
 ```
 
-S funkcijo melt() iz paketa reshape lahko spreminjamo razporeditev podatkov stolpce in vrstice.
+S funkcijo melt() iz paketa reshape lahko "vrtimo" tabale: spreminjamo razporeditev podatkov v stolpce in vrstice.
 ```{r}
 # Recimo, da želimo imeti en stolpec z vsemi vrednostmi za hepatitisB, polio in HIV za vse države, v drugem stolpcu pa bi imeli spremenljivko, za katero bolezen gre
 # Takšno organizacijo podatkov ponavadi potrebujemo za grafično prikazovanje podatkov
@@ -539,6 +552,10 @@ library(reshape)
 bolezni_melt <- melt(bolezni, id.vars = c("Leto", "Drzava"))
 # Preveimo novonastalo tabelo s funkcijo head()
 head(bolezni_melt)
+```
+```{r}
 #Preverimo vrednosti v stolpcu 'variable' tabele bolezni_melt
 table(bolezni_melt$variable)
 ```
+
+
