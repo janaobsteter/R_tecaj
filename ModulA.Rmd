@@ -454,8 +454,8 @@ summary(zivDoba$ZivDoba)
 
 V tabeli lahko uporabimo operatorje primerjav, da izberemo samo določene vrstice ali vrednosti.
 ```{r}
-# Izberimo vse vrstice tabele, v katerih je vrednost spremenljivke ZivDoba večja od 77
-zivDoba[zivDoba$ZivDoba > 77,]
+# Izberimo vse vrstice tabele, v katerih je vrednost spremenljivke ZivDoba večja od 85
+zivDoba[zivDoba$ZivDoba > 85,]
 ```
 ```{r}
 # Izberimo vse vrstice, v katerih je vrednost stolpca "Drzava" enaka "France"
@@ -478,9 +478,13 @@ Izbrane vrstice in/ali stolpce lahko tudi zapišemo v nov objekt oz. tabelo.
 # Ustvarimo vektor 'ospiceFR', v katerega zberemo podatke o letu in pojavnosti ošpic v Franciji
 ospiceFR <- zivDoba[zivDoba$Drzava == "France", c("Leto", "Ospice")]
 head(ospiceFR)
+```
+```{r}
 # Preimenuj drugi stolpceviz 'Ospice' v 'ospiceFR'
 colnames(ospiceFR)[2] <- 'ospiceFR'
 head(ospiceFR)
+```
+```{r}
 # Ustvarimo vektor 'ospiceBR', v katerega zberemo podatke o letu in pojavnosti ošpic v Braziliji
 ospiceBR <- zivDoba[zivDoba$Drzava == "Brazil", c("Leto", "Ospice")]
 # Preimenuj drugi stolpceviz 'Ospice' v 'ospiceBR'
@@ -523,7 +527,7 @@ S funkcijo cbind() lahko povežemo vektorje v novo tabelo.
 
 ```{r}
 # S funkcijo cbind() združimo zgoraj ustvarjene vektorje 'ospiceFR', 'ospiceAU' in 'ospiceEG' v novo tabelo 'ospice'
-ospice <- cbind(ospiceFR, ospiceAU, ospiceEG)
+ospice <- cbind(ospiceAU, ospiceEG)
 # Preverimo novonastalo tablelo
 head(ospice)
 ```
@@ -535,13 +539,13 @@ ospiceMerged <- merge(ospiceFR, ospiceBR, by="Leto")
 head(ospiceMerged)
 ```
 
-S funkcijo melt() iz paketa reshape lahko "vrtimo" tabale: spreminjamo razporeditev podatkov v stolpce in vrstice.
+S funkcijo melt() iz paketa reshape lahko "vrtimo" tabele: spreminjamo razporeditev podatkov v stolpce in vrstice.
 ```{r}
 # Recimo, da želimo imeti en stolpec z vsemi vrednostmi za hepatitisB, polio in HIV za vse države, v drugem stolpcu pa bi imeli spremenljivko, za katero bolezen gre
 # Takšno organizacijo podatkov ponavadi potrebujemo za grafično prikazovanje podatkov
 # Najprej izberemo željene stolpce celotne tabele zivDoba - Drzava, Leto, HepatitisB, HIV in Polio
 bolezni <- zivDoba[, c("Drzava", "Leto", "HepatitisB", "HIV", "Polio")]
-# Preverimo novonastalo tablelo
+# Preverimo novonastalo tabelo
 head(bolezni)
 ```
 
@@ -558,4 +562,94 @@ head(bolezni_melt)
 table(bolezni_melt$variable)
 ```
 
+
+### tidyr funkcije za preurejanje podatkov
+tidyr je paket, ki vsebuje nabor funkcij za urejanje podatkov v R-u (https://tidyr.tidyverse.org/reference/index.html). Teži k "urejenosti" tabel in omogoča tudi podajanje podatkov med funkcijami z operatorjem %>%. Paket tidyr operira s podatkovni strukturo tibble (in ne data frame). Ta je preprostejša in omogoča manj operacij, s čimer pa omogoča hitrejšo odpravo napak in poenostavljenje kode.
+
+Funkcija pivot_longer() opravlja enako nalogo kot funkcija melt(), ki smo jo uporabili zgoraj. Tabelo preuredi tako, da ima več vrstic in manj stolpcev oz. podaljša tabelo.
+```{r}
+# Ponovimo vajo in s funkcijo pivot_longer() iz paketa tidyr preuredumo tabelo bolezni (ustvarjena zgoraj), tako da zberemo vse vredosti za stolpce HepatitisB, HIV in Polio v enem stolpcu
+# Novo nastalo tabelo poimenujemo bolezni_longer
+library(tidyr)
+bolezni_longer <- pivot_longer(data = bolezni, cols = c(HepatitisB, HIV, Polio), names_to = "Bolezen")
+# Preverimo novonastalo tabelo
+head(bolezni_longer)
+```
+
+Obratna funkcija je pivot_wider(), ki ustvari tablo z več stolpci in manj vrsticami oz. razširi tabelo.
+```{r}
+# S funkcijo pivot_wider() razširimo zgornjo tabelo bolezni_longer, da bodo podatki za vsako državo v svojem stolpcu
+bolezni_wider <- pivot_wider(data = bolezni_longer, id_cols = c(Leto, Bolezen), names_from=Drzava, values_from = value)
+# Preverimo novonastalo tabelo
+head(bolezni_wider)
+```
+
+S funkcijo separate() združimo vrednosti dveh stolpcev. Enako lahko naredimo tudi s funkcijo paste0(). Nasprotje funkcije unite() je funkcija separate().
+```{r}
+# Združimo stolpca Drzava in Leto tabele bolezni z ločilom "_" v nov stolpev DrzavaLeto
+head(unite(bolezni, DrzavaLeto, Drzava, Leto, sep="_"))
+```
+
+Funkcija expand() prikaže vse kombinacije določenih spremenljivk v podatkih.
+```{r}
+# S funkcijo expand() preverimo vse kombinacije spremenljivk Drzava in Leto v tabelo bolezni in rezultat shranimo v bolezni_kombo
+bolezni_kombo <- expand(bolezni, Drzava, Leto)
+# Preverimo število kombinacij
+nrow(bolezni_kombo)
+# Prikažemo zadnjih par vrstic tabele
+tail(bolezni_kombo)
+```
+
+
+S funkcijo chop() lahko podatke za določeno vrednost ali kombinacijo spremenljivk shranimo v en element - seznam.
+```{r}
+# Uporabimo funkcijo chop() da vse vrednosti za bolezni po letih shranimo v eno spremenljivko glede na Drzavo. Rezultat shranimo v tabelo bolezni_chop.
+bolezni_chop <- chop(bolezni, c(Leto, HepatitisB, HIV, Polio))
+# Preverimo rezultat
+bolezni_chop
+```
+```{r}
+# Preverimo dimenzije vstopne in novonastale tabele
+dim(bolezni)
+dim(bolezni_chop)
+# Novonastala tabelo je dimenzije
+```
+
+
+```{r}
+# Novonastala tabela vsebuje samo eno vrstico za vsako državo!
+# Elementi tabele so seznami vektorjev
+# Preverimo stolpec leto tabele bolezni_chop
+bolezni_chop$Leto
+```
+```{r}
+# Preverimo stolpev Polio tabele bolezni_chop
+bolezni_chop$Polio
+# Elementi so seznami z vektorji za vsak nivo preostalih spremenljivk
+```
+
+Obratna funkcija je funkcija unchop().
+```{r}
+# Uporabimo funkcijo unchop() za razširitev podatkov tabele bolezni_chop
+# Chopped tabelo lahko razširimo za posamezno ali vse spremenljivke
+head(unchop(bolezni_chop, c(Leto)))
+
+```
+```{r}
+# Razširitev glede na vse spremenljivke povrne tabelo  osnovno stanje
+head(unchop(bolezni_chop, c(Leto, HepatitisB, HIV, Polio)))
+```
+
+Funkcija pack() sesede stolpce v en stolpec-tabelo s skupnim imenom, ki ga določi uporabnik, in pod-imenom, ki je enako imenu vhodne spremenljivke.
+```{r}
+# S funkcijo pack() sesedemo stolpce HepatitisB, HIV in Polio v stolpec-tabelo "Bolezni". Novonastalo tabelo poimenujemo bolezni_pack.
+bolezni_pack <- pack(bolezni, Bolezen = c(HepatitisB, HIV, Polio))
+# Preverimo tabelo
+head(bolezni_pack)
+```
+
+```{r}
+# Ustvarili smo stolpec "Bolezen", ki ima eno vrstico za vsako državo in leto, element vrstice pa je tabelo dimenzij 6x3
+# Preverimo
+```
 
