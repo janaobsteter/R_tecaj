@@ -1,0 +1,80 @@
+---
+title: "ModulB.md"
+author: "Jana Obšteter"
+date: "November 5, 2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# Zanke
+Zanke v programiranju uporabljamo za ponovljeno izvajanje določene kode. 
+
+## For zanka
+For zanka iterira skozi vektor vrednosti. V vsakem krogu R pripiše novo vrednost lokalni spremenljivki in aplicira ukazno kodo. Ime lokalne spremenljivke določi uporabnik. 
+
+```{r}
+# Ustvarimo vektor test s števili 1 do 10
+test <- 1:10
+# S for zanko iterirajmo skozi vektor, izpišimo vsak element in ostanek pri deljenju z dva
+for (element in test) {
+  print(element)
+  ostanek <- element %% 2
+  print(ostanek)
+}
+```
+
+```{r}
+# po končani zanki lokalna spremenljivka (v tem primeru element) še vedno obstaja, drži pa zadnjo vrednost zaporedja
+element
+  
+```
+```{r}
+# Izračunajmo kvadrat naravnih števil med 1 in 20 in jih shranimo v vektor kvadrati
+# Najprej inicializiramo vektor kvadrati
+kvadrati <- c()
+# Nato s for zanko iteriramo skozi elemente zaporedja 1:20, vsakega kvadriramo in shranimo v vektor kvadrati
+for (stevilo in 1:20) {
+  kvadrat <- stevilo^2
+  kvadrati <- c(kvadrati, kvadrat)
+}
+# Preverimo novonastali vektor
+kvadrati
+```
+
+## While zanka
+While zanka izvaja kodo, dokler da določen pogoj ni izpolnjen. Zanka testira pogoj, ki ga določi uporabnik in iz nje izstopi, ko je pogoj izpolnjen. While zanka spremenljivki ne uporablja (lokalne) spremenljivke, ki ji pripiše vrednost, zato mora uporabnik spremenljivko ustvariti in spreminjati sam.
+
+```{r}
+# Ponovimo zgornjo vajo s kvadrati naravnih števil, tokrat z while zanko
+# Dokler, da je število manjše ali enako 20, računajmo kvadrate naravnih števil in jih zapišimo v vektor kvadrati1
+# Inicializiramo vektor kvadrati1
+kvadrati1 <- c()
+# Inicializiramo število
+stevilo <- 1
+# Z while znakko računajmo kvadrate števil do 20. Vsak krog povečajmo spremenljivko stevilo za 1
+while (stevilo <= 20) {
+  kvadrat <- stevilo^2
+  kvadrati1 <- c(kvadrati1, kvadrat)
+  stevilo <- stevilo + 1
+}
+# Preverimo vektor kvadrati1
+kvadrati1
+```
+
+```{r}
+# Preverimo, ali smo s for in while zanko dobili enak rezultat
+kvadrati == kvadrati1
+# S funkcijo all() lahko preverimo, ali so vse vrednosti v vektorju TRUE
+all(kvadrati == kvadrati1)
+```
+
+
