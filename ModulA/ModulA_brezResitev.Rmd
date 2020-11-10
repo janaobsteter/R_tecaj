@@ -14,7 +14,7 @@ output:
 V R-u lahko ukazno kodo pišemo direktno v konzolo ali v urejevalnik, pri čemer se koda vedno izvrši v konzoli.
 ```{r}
 # Seštejemo števili 3 + 5
-
+3 + 5
 ```
 
 Spremenljivkam vrednosti pripišemo z operatorjem <-, ki je značilen za programski jezik R, lahko pa uporabimo tudi =. Ime spremenljivke je poljubno in lahko vključuje velike in male črke, . in /_. Ne sme se začeti s številko ali _ ter ne sme vključevati šumnikov. 
@@ -29,7 +29,7 @@ Vrstice, ki se pričnejo z # so komentarji in se ne izvršijo
 # stevilo <- 3
 ```
 
-R-funkcije so vključene v različne pakete oz. knjižnice. Nekatere knjižnice z osnovnimi funkcijami so v R naložene kot privzeto, ostale pa moramo namestiti. Knjižnice namestimo z ukazom install.packages("imePaketa"). Namestitev paketa je enkratna, ob vsakem zagonu R-a pa moramo želene knjižnice naložiti v delovni prostor z ukazom library(imePaketa).
+R-funkcije so vključene v različne pakete oz. knjižnice. Nekatere knjižnice z osnovnimi funkcijami so v R naložene kot privzeto, ostale pa moramo namestiti. Knjižnice namestimo z ukazom install.packages("imePaketa"). Namestitev paketa je enkratna, ob vsakem zagonu R-a pa moramo želene knjižnice naložiti v delovni prostor z ukazom library(imePaketa) brez navednic.
 ```{r}
 # Kot primer naložimo paket 'base', ki je kot privzet vključen v R
 
@@ -48,17 +48,18 @@ R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spr
 
 # Izpišimo "stevilo"
 
-# Preverimo tip spremenljivke
+# Preverimo tip spremenljivke s funkcijo class()
 
 ```
 
 R cela števila ustvari kot tip "numeric" in ne "integer". Če želimo, da je spremenljivka eksplicitno tip "integer", jo moramo pretvoriti.
 ```{r}
-# Ustvarimo spremenljivko "stevilo" z vrednostjo 10 kot "integer"
+# Ustvarimo spremenljivko "stevilo" z vrednostjo 10 kot "integer" (as.integer)
 
 # Preverimo tip spremenljivke
 
 ```
+
 Eksplicitno lahko tip "integer" ustvarimo tudi z dodatkom črke "L" na koncu celega števila.
 ```{r}
 # Direktno ustvarimo "integer" spremenljivko "stevilo" z vrednostjo 10
@@ -138,7 +139,7 @@ Vektor ustvarimo s funkcijo c(). Vektor vključuje en podatkovni tip.
 # Izpišimo vektor
 
 ```
-Vektor številskega zaporedja lahko ustvarimo tudi  z navedbo razpona številk.
+Vektor številskega zaporedja lahko ustvarimo tudi  z navedbo razpona številk (začetek:konec).
 ```{r}
 # Ustvarimo številski vektor "meseci" s številkami mesecev 1 do 12
 
@@ -204,34 +205,11 @@ Elemente seznama izberemo z indeksom v dvojnih oglatih oklepajih.
 ### Podatkovni okvir / tabela
 Podatkovni okvir oz. tabelo ustvarimo s funkcijo data.frame(). Podatkovni okvir lahko v posameznih stolpcih vsebuje različne podatkovne tipe.
 ```{r}
-# Ustvarimo tabelo "povpTemp" z letnimi časi in povprečno temperature za vsakega izmed njih
+# Ustvarimo tabelo "povpTemp" s stolpcem letniCasi (vanj zapišemo letne case)
+# in stolpcem temperatura s temperaturo za vsakega izmed njih
 # Predpostavimo, da je povprečna temperatura pomladi je 18, poleti 24, jeseni 13 in pozimi 5
 
 # Izpišimo tabelo
-
-```
-
-Prvih ali zadnjih par vrstic tabele izpišemo s funkcijo head() ali tail().
-```{r}
-# Izpišimo prvih par vrstic tabele "povpTemp"
-
-```
-
-Privzeta vrednost funkcije head je 6 vrstic, zato izpiše celotno tabelo. Obnašanje funkcije head() lahko modificiramo s parametrom n, kjer navedemo število vrstic.
-```{r}
-# Izpišimo prvi dve vrstici tabele "povpTemp"
-
-```
-
-Število vrstic in stolpcev preverimo s funkcijama nrow() in ncol().
-```{r}
-# Preverimo število vrstic in stolpcev tabele "povpTemp"
-
-```
-
-Imena vrstic in stolpcev preverimo s funkcijama rownames() in colnames().
-```{r}
-# Preverimo imena vrstic in stolpcev tabele "povpTemp"
 
 ```
 
@@ -281,16 +259,6 @@ Polje ustvarimo s funkcijo array().
 
 
 # Izpišimo polje "povpTempLeto"
-
-```
-Dimenzije polja preverimo s funkcijo dim(), strukturo ps s funkcijo str().
-```{r}
-# Preverimo dimenzije polja "povpTempLeto"
-
-```
-
-```{r}
-# Preverimo strukturo polja "povpTempLeto"
 
 ```
 
@@ -425,7 +393,7 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 V R-u lahko nastavimo delovni imenik s funkcijo setwd(). Ta postane privzeta pot za branje in pisanje datotek.
 ```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-workingDir <- "/home/jana/Documents/Delavnice/R/Material/"
+workingDir <- "VašDelovniImenik"
 knitr::opts_knit$set(root.dir = workingDir)
 setwd(workingDir)
 
@@ -443,7 +411,7 @@ Na primeru bomo pogledali, kako v R prebrati tabelo, izluščiti lastnosti podat
 Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
 V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je ZivljenjskaDoba.csv, ki vsebuje podatke zbrane s strani organizacija WHO o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
 ```{r}
-# Preberimo datoteko ZivljenjskaDoba_mali.csv
+# Preberimo datoteko ZivljenjskaDoba.csv
 
 ```
 
@@ -591,7 +559,7 @@ V tabelah lahko tudi spreminjamo vrednost. Stolpce, vrstica ali polja, katerim �
 
 ```
 ```{r}
-# Prevrimo zastopanost vrednosti v stolpcu "Celina"
+# Preverimo zastopanost vrednosti v stolpcu "Celina"
 
 ```
 
@@ -613,7 +581,7 @@ S funkcijo cbind() lahko povežemo vektorje v novo tabelo.
 # S funkcijo cbind() združimo zgoraj ustvarjene vektorje 'ospiceFR', 'ospiceAU' in 'ospiceEG' 
 # v novo tabelo 'ospice'
 
-# Preverimo novonastalo tablelo
+# Preverimo novonastalo tabelo
 
 ```
 
@@ -622,7 +590,7 @@ S funkcijo merge() lahko združujemo tabele na podlagi skupnega ključa.
 # S funkcijo merge() združimo zgoraj ustvarjene vektorje 'ospiceFR' in 'ospiceBR' 
 # na podlagi spremenljivke 'Leto' v novo tabelo 'ospiceMerged'
 
-# Preverimo novonastalo tablelo
+# Preverimo novonastalo tabelo
 
 ```
 

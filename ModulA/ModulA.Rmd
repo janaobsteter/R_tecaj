@@ -212,28 +212,6 @@ povpTemp <- data.frame(LetniCas = letniCasi, temp = c(18, 24, 13, 5))
 # Izpišimo tabelo
 print(povpTemp)
 ```
-Prvih ali zadnjih par vrstic tabele izpišemo s funkcijo head() ali tail().
-```{r}
-# Izpišimo prvih par vrstic tabele "povpTemp"
-head(povpTemp)
-```
-Privzeta vrednost funkcije head je 6 vrstic, zato izpiše celotno tabelo. Obnašanje funkcije head() lahko modificiramo s parametrom n, kjer navedemo število vrstic.
-```{r}
-# Izpišimo prvi dve vrstici tabele "povpTemp"
-head(povpTemp, n=2)
-```
-Število vrstic in stolpcev preverimo s funkcijama nrow() in ncol().
-```{r}
-# Preverimo število vrstic in stolpcev tabele "povpTemp"
-nrow(povpTemp)
-ncol(povpTemp)
-```
-Imena vrstic in stolpcev preverimo s funkcijama rownames() in colnames().
-```{r}
-# Preverimo imena vrstic in stolpcev tabele "povpTemp"
-rownames(povpTemp)
-colnames(povpTemp)
-```
 
 Elemente tabele izberemo z indeksom vrstice/stolpca v oglatih oklepajih.
 ```{r}
@@ -282,16 +260,6 @@ povpTempLeto <- array(c(18, 24, 13, 5, 15, 27, 12, 7),
                                     c(2018, 2019)))
 # Izpišimo polje "povpTempLeto"
 povpTempLeto
-```
-Dimenzije polja preverimo s funkcijo dim(), strukturo ps s funkcijo str().
-```{r}
-# Preverimo dimenzije polja "povpTempLeto"
-dim(povpTempLeto)
-```
-
-```{r}
-# Preverimo strukturo polja "povpTempLeto"
-str(povpTempLeto)
 ```
 
 # Osnovne operacije
@@ -423,8 +391,8 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 V R-u lahko nastavimo delovni imenik s funkcijo setwd(). Ta postane privzeta pot za branje in pisanje datotek.
 ```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-workingDir <- "/home/jana/Documents/Delavnice/R/Material/"
-knitr::opts_knit$set(root.dir = '/home/jana/Documents/Delavnice/R/Material/')
+workingDir <- "VašDelovniImenik"
+knitr::opts_knit$set(root.dir = workingDir)
 setwd(workingDir)
 
 ```
@@ -587,7 +555,7 @@ zivDoba$Celina[zivDoba$Drzava == "Egypt"] <- "Afrika"
 zivDoba$Celina[zivDoba$Drzava %in% c("Brazil", "Peru", "Chile")] <- "JuznaAmerika"
 ```
 ```{r}
-# Prevrimo zastopanost vrednosti v stolpcu "Celina"
+# Preverimo zastopanost vrednosti v stolpcu "Celina"
 table(zivDoba$Celina)
 ```
 
@@ -609,15 +577,16 @@ S funkcijo cbind() lahko povežemo vektorje v novo tabelo.
 # S funkcijo cbind() združimo zgoraj ustvarjene vektorje 'ospiceFR', 'ospiceAU' in 'ospiceEG' 
 # v novo tabelo 'ospice'
 ospice <- cbind(ospiceAU, ospiceEG)
-# Preverimo novonastalo tablelo
+# Preverimo novonastalo tabelo
 head(ospice)
 ```
+
 S funkcijo merge() lahko združujemo tabele na podlagi skupnega ključa.
 ```{r}
 # S funkcijo merge() združimo zgoraj ustvarjene vektorje 'ospiceFR' in 'ospiceBR' 
 # na podlagi spremenljivke 'Leto' v novo tabelo 'ospiceMerged'
 ospiceMerged <- merge(ospiceFR, ospiceBR, by="Leto")
-# Preverimo novonastalo tablelo
+# Preverimo novonastalo tabelo
 head(ospiceMerged)
 ```
 
