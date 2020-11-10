@@ -20,7 +20,7 @@
 
 # Izpišimo "stevilo"
 
-# Preverimo tip spremenljivke
+# Preverimo tip spremenljivke (s funkcijo class())
 
 
 

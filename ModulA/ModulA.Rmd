@@ -1,13 +1,16 @@
 ---
 title: "ModulA"
 author: "Jana Obšteter"
-date: "November 6, 2020"
-output:
-  pdf_document: default
-  html_document: default
+date: "November 10, 2020"
+output: 
+  pdf_document:
+    toc: true # table of content true
+    toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
+    number_sections: true  ## if you want number sections at each table header
+    highlight: tango  # specifies the syntax highlighting style
 ---
 
-# 1 Osnove R-a
+# Osnove R-a
 V R-u lahko ukazno kodo pišemo direktno v konzolo ali v urejevalnik, pri čemer se koda vedno izvrši v konzoli.
 ```{r}
 # Seštejemo števili 3 + 5
@@ -34,7 +37,7 @@ library(base)
 
 
 
-# 2 Osnovni podatkovni tipi in strukture 
+# Osnovni podatkovni tipi in strukture 
 ## Podatkovni tipi
 
 R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spremenljivko vsakega izmed tipov.
@@ -291,7 +294,7 @@ dim(povpTempLeto)
 str(povpTempLeto)
 ```
 
-# 3 Osnovne operacije
+# Osnovne operacije
 ## Osnovni aritmetični operatorji
 Osnovni aritmetični operatorji v R-u so + za seštevanje, - za odštevanje, * za množenje, / za deljenje.
 
@@ -415,7 +418,7 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 (sum(vrednosti, na.rm = TRUE))
 ```
 
-# 4 Osnove dela z datotekami
+# Osnove dela z datotekami
 ## Nastavitev delovnega imenika
 V R-u lahko nastavimo delovni imenik s funkcijo setwd(). Ta postane privzeta pot za branje in pisanje datotek.
 ```{r setup, include=FALSE}
@@ -598,7 +601,7 @@ write.csv(zivDoba, "ZivljenjskaDoba_popravljena.csv", quote=FALSE, row.names=FAL
 ```
  
 
-# 5 Preurejanje podatkov
+# Preurejanje podatkov
 
 S funkcijo cbind() lahko povežemo vektorje v novo tabelo. 
 
@@ -742,7 +745,7 @@ head(bolezni_pack, 3)
 # Preverimo
 ```
 
-# 6 Povzemanje podatkov
+# Povzemanje podatkov
 Pri prebranih podatkih nas ponavadi najprej zanimajo srednje vrednosti spremenljivk in razpršenost podatkov.
 
 Vsoto lahko izračunamo s funkcijo sum(). Pri pregledovanju podatkov v tabelah lahko uporabimo tudi funkciji rowSums() in colSums(), ki vrneta vsoti vrstic ali stolpcev. Funkciji delujeta le na numeričnih podatkih, zato jih moramo naprej pretvoriti (as.numeric()) ali pa izbrati le numerične vrstice / stolpce.
