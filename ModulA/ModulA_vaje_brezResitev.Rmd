@@ -14,22 +14,24 @@ output:
 V R-u lahko ukazno kodo pišemo direktno v konzolo ali v urejevalnik, pri čemer se koda vedno izvrši v konzoli.
 ```{r}
 # Seštejemo števili 3 + 5
-3 + 5
+
 ```
 
-Spremenljivkam vrednosti pripišemo z operatorjem <-, ki je značilen za programski jezik R, lahko pa uporabimo tudi =. Ime spremenljivke je poljubno in lahko vključuje velike in male črke, . in /_. Ne sme se začeti s številko ali _ ter ne sme vključevati šumnikov. 
+Spremenljivkam vrednosti pripišemo z operatorjem `<-`, ki je značilen za programski jezik R, lahko pa uporabimo tudi =. Ime spremenljivke je poljubno in lahko vključuje velike in male črke, . in /_. Ne sme se začeti s številko ali _ ter ne sme vključevati šumnikov. 
 ```{r}
 # Spremenljivki stevilo pripišemo vrednosti 3
 
+# Pokličemo spremenljivko stevilo
+
 ```
 
-Vrstice, ki se pričnejo z # so komentarji in se ne izvršijo
+Vrstice, ki se pričnejo z `#` so komentarji in se ne izvršijo
 ```{r}
 # Nastavimo stevilo
 # stevilo <- 3
 ```
 
-R-funkcije so vključene v različne pakete oz. knjižnice. Nekatere knjižnice z osnovnimi funkcijami so v R naložene kot privzeto, ostale pa moramo namestiti. Knjižnice namestimo z ukazom install.packages("imePaketa"). Namestitev paketa je enkratna, ob vsakem zagonu R-a pa moramo želene knjižnice naložiti v delovni prostor z ukazom library(imePaketa) brez navednic.
+R-funkcije so vključene v različne pakete oz. knjižnice. Nekatere knjižnice z osnovnimi funkcijami so v R naložene kot privzeto, ostale pa moramo namestiti. Knjižnice namestimo z ukazom `install.packages("imePaketa")`. Namestitev paketa je enkratna, ob vsakem zagonu R-a pa moramo želene knjižnice naložiti v delovni prostor z ukazom `library(imePaketa)`.
 ```{r}
 # Kot primer naložimo paket 'base', ki je kot privzet vključen v R
 
@@ -40,7 +42,7 @@ R-funkcije so vključene v različne pakete oz. knjižnice. Nekatere knjižnice 
 # Osnovni podatkovni tipi in strukture 
 ## Podatkovni tipi
 
-R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spremenljivko vsakega izmed tipov.
+R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spremenljivko vsakega izmed tipov. Tip spremenljivke preverimo s funkcijo `class(spremenljivka)`.
 
 ### Cela števila
 ```{r}
@@ -48,13 +50,13 @@ R razlikuje med različnimi podatkovnimi tipi. V nadaljevanju bomo ustvarili spr
 
 # Izpišimo "stevilo"
 
-# Preverimo tip spremenljivke s funkcijo class()
+# Preverimo tip spremenljivke
 
 ```
 
-R cela števila ustvari kot tip "numeric" in ne "integer". Če želimo, da je spremenljivka eksplicitno tip "integer", jo moramo pretvoriti.
+R cela števila ustvari kot tip "numeric" in ne "integer". Če želimo, da je spremenljivka eksplicitno tip "integer", jo moramo pretvoriti. Med podatkovnimi tipi pretvarjamo s funkcijo `as.podatkovniTip(vrednost/spremenljivka)`, v tem primeru `as.integer(vrednost)`.
 ```{r}
-# Ustvarimo spremenljivko "stevilo" z vrednostjo 10 kot "integer" (as.integer)
+# Ustvarimo spremenljivko "stevilo" z vrednostjo 10 kot "integer"
 
 # Preverimo tip spremenljivke
 
@@ -63,7 +65,6 @@ R cela števila ustvari kot tip "numeric" in ne "integer". Če želimo, da je sp
 Eksplicitno lahko tip "integer" ustvarimo tudi z dodatkom črke "L" na koncu celega števila.
 ```{r}
 # Direktno ustvarimo "integer" spremenljivko "stevilo" z vrednostjo 10
-
 
 ```
 
@@ -90,7 +91,7 @@ Znake R navaja v navednicah, pri čemer je lahko znak črkovni, številčni ali 
 ```
 
 ### Logični vektor
-Logične vrednosti v R-u so TRUE in FALSE.
+Logične vrednosti v R-u so TRUE in FALSE (velike črke).
 ```{r}
 # Ustvarimo spremenljivko "logicnaVrednost" z vrednostjo TRUE
 
@@ -101,7 +102,7 @@ Logične vrednosti v R-u so TRUE in FALSE.
 ```
 Z logičnimi vrednostmi lahko tudi računamo, pri čemer je vrednost TRUE vredna 1, vrednost FALSE pa 0.
 ```{r}
-# Seštejmo vrednosti TRUE in TRUE
+# Sesštejmo vrednosti TRUE in TRUE
 
 ```
 
@@ -132,27 +133,31 @@ Prazen element R predstavi kot NULL.
 V R-u lahko ustvarimo različne podatkovne strukture. V nadaljevanju bomo ustvarili vsako izmed struktur.
 
 ### Vektor
-Vektor ustvarimo s funkcijo c(). Vektor vključuje en podatkovni tip.
+Vektor ustvarimo s funkcijo `c()`, v oklepaje navedemo vrednosti ločene z vejico - vektor(vrednost1, vrednost2 ...). Vektor vključuje en podatkovni tip.
 ```{r}
 # Ustvarimo številski vektor "stevila" z vrednostmi 1, 10 in 100
 
 # Izpišimo vektor
 
 ```
+
 Vektor številskega zaporedja lahko ustvarimo tudi  z navedbo razpona številk (začetek:konec).
 ```{r}
 # Ustvarimo številski vektor "meseci" s številkami mesecev 1 do 12
 
+# Izpišimo vektor
 
 ```
-Vektorje znakov prav tako ustvarimo s funkcijo c().
+
+Vektorje znakov prav tako ustvarimo s funkcijo `c()`, znotraj oklepajev navedemo znake ločene z vejico. Znake podamo znotraj narekovajev.
 ```{r}
 # Ustvarimo vektor znakov "letniCasi" z letnimi časi
 
 # Izpišimo vektor
 
+
 ```
-Elemente vektorjev izberemo z indeksom v oglatih oklepajih.
+Elemente vektorjev izberemo z indeksom v oglatih oklepajih, `vektor[indeks]`.
 ```{r}
 # Izberimo drugi element vektorja "letniCasi"
 
@@ -161,7 +166,7 @@ Elemente vektorjev izberemo z indeksom v oglatih oklepajih.
 
 
 ### Faktor
-Faktorji so 'vektorji' kategoričnih spremenljivk. Vsebujejo določeno število vrednosti oz. ravni. Ustvarimo jih s funkcijo factor().
+Faktorji so 'vektorji' kategoričnih spremenljivk. Vsebujejo določeno število vrednosti oz. ravni. Ustvarimo jih s funkcijo `factor()`. Znotraj oklepajev navedemo ravni ločene z vejico.
 ```{r}
 # Ustvarimo faktor "letniCasi_f" s ponovljenimi vrednostmi za letne čase 
 # c("pomlad", "pomlad", "poletje", "poletje", "jesen", "jesen", "zime", "zima")
@@ -172,48 +177,48 @@ Faktorji so 'vektorji' kategoričnih spremenljivk. Vsebujejo določeno število 
 
 Ko je faktor ustvarjen, ne moremo dodajati oz. ustvariti novih ravni.
 ```{r}
-# Poskušajmo dodati novo raven 'zjutraj' v faktor kot deveti element
+# Poskušajmo spremeniti drugi element faktorja letniCasi_f v novo raven "zjutraj"
 
 # Ta operacija je nedovoljena, saj "zjutraj" ni ena izmed ravni faktorja (ne moremo ustvariti novih)
 ```
 
 ### Seznam
-Seznam ustvarimo s funkcijo list() in lahko vključujejo razlilčne podatkovne tipe kot tudi strukture.
+Seznam ustvarimo s funkcijo `list()`, elemente seznama ločene z vejico navedemo znotraj oklepajev. Seznam lahko vključuje različne podatkovne tipe kot tudi strukture.
 ```{r}
-# Ustvarimo seznam "leto", ki vključuje vektorje:
+# Ustvarimo seznam "leto", ki vključuje vektorje 
 # "meseci" in "letniCasi" iz prejsnjega koraka in število 2020
 
 # Izpišimo seznam "leto"
 
 ```
 ```{r}
-# Preverimo dolžino seznama "leto""
+# Preverimo dolžino seznama "leto" s funkcijo length
 
 
 ```
-Elemente seznama izberemo z indeksom v dvojnih oglatih oklepajih.
+Elemente seznama izberemo z indeksom v dvojnih oglatih oklepajih, `seznam[[indeks]]`.
 ```{r}
 # Izberemo prvi element seznama "leto"
 
 ```
-```{r}
 
+Če ima element seznama podelemente (če je npr. vektor), le-te izberemo z indeksom z enojnih oglatih oklepajih, `seznam[[element]][podelement]`.
+```{r}
 # Ker je prvi element vektor, izberimo še peti element znotraj tega
 
 ```
 
 ### Podatkovni okvir / tabela
-Podatkovni okvir oz. tabelo ustvarimo s funkcijo data.frame(). Podatkovni okvir lahko v posameznih stolpcih vsebuje različne podatkovne tipe.
+Podatkovni okvir oz. tabelo ustvarimo s funkcijo `data.frame()`. Znotraj oklepajev navedemo `imeStolpca = vrednosti` za poljubno ime stolpcev. Podatkovni okvir lahko v posameznih stolpcih vsebuje različne podatkovne tipe.
 ```{r}
-# Ustvarimo tabelo "povpTemp" s stolpcem letniCasi (vanj zapišemo letne case)
-# in stolpcem temperatura s temperaturo za vsakega izmed njih
+# Ustvarimo tabelo "povpTemp" z letnimi časi in povprečno temperature za vsakega izmed njih
 # Predpostavimo, da je povprečna temperatura pomladi je 18, poleti 24, jeseni 13 in pozimi 5
 
 # Izpišimo tabelo
 
 ```
 
-Elemente tabele izberemo z indeksom vrstice/stolpca v oglatih oklepajih.
+Elemente tabele izberemo z indeksom vrstice/stolpca v oglatih oklepajih, `tabela[indeksVrstice, indeksStolpca]`.
 ```{r}
 # Izberimo prvo vrednost v prvem stolpcu tabele "povpTemp"
 
@@ -226,15 +231,14 @@ Elemente tabele izberemo z indeksom vrstice/stolpca v oglatih oklepajih.
 # Izberimo prvi stolpec tabele "povpTemp"
 
 ```
-
-Stolpce tabel lahko izberemo tudi po imenu.
+Stolpce tabel lahko izberemo tudi po imenu z operatorjem `$`, `tabela$stolpec`.
 ```{r}
 # Izberimo stolpec <LetniCasi> v tabeli "povpTemp"
 
 ```
 
 ### Matrika
-Matriko ustvarimo s funkcijo matrix(). Matrike ponavadi vsebujejo numerične spremenljivke, saj omogoča matrično računanje.
+Matriko ustvarimo s funkcijo `matrix()`, znotraj oklepajev navedemo vrednosti, število stolpcev in vrstic. Matrike ponavadi vsebujejo numerične spremenljivke, saj omogoča matrično računanje.
 ```{r}
 # Ustvarimo matriko "vrednosti" z vrednostmi 1:20, štirimi vrsticami in petimi stolpci
 
@@ -242,19 +246,20 @@ Matriko ustvarimo s funkcijo matrix(). Matrike ponavadi vsebujejo numerične spr
 
 ```
 
-Elemente matrike izberemo z indeksom vrstice/stolpca v oglatih oklepajih (enako kot tabele).
+Elemente matrike izberemo z indeksom vrstice/stolpca v oglatih oklepajih (enako kot tabele), `matrika[indeksVrstice, indeksStolpca]`.
 ```{r}
 # Izberimo element v drugi vrstici tretjega stolpca matrike vrednosti
 
 ```
 
 ### Polje
-Polje ustvarimo s funkcijo array().
+Polje ustvarimo s funkcijo `array()`, v oklepaju navedemo vrednosti, vektor dimenzij in imena dimenzij (neobvezno).
 ```{r}
-# Ustvarimo polje povpTempLeto s povprečnimi letnimi temperaturami v letnih časih 
-# v dveh različnih letih.
+# Ustvarimo polje povpTempLeto s povprečnimi letnimi temperaturami v 
+# letnih časih v dveh različnih letih.
 # Povprečna temparatura je vektor vrednosti 18, 24, 13, 5, 15, 27, 12, 7; leti sta 2018 in 2019
 # Dimenzije: x = letni čas (4), y = povprečna temperatura (1), z = leto (2)
+
 
 
 
@@ -270,7 +275,6 @@ Osnovne računske operacije lahko apliciramo na števila ali vektorje (enakih do
 ```{r}
 # Ustvarimo spremenljivki "a" z vrednostjo 2 in "b" z vrednostjo 11.2
 
-
 # Ustvarimo spremenvljivko "vsota" kot vsoto a in b
 
 # Ustvarimo spremenvljivko "razlike" kot vsoto a in b
@@ -284,7 +288,6 @@ Osnovne računske operacije lahko apliciramo na števila ali vektorje (enakih do
 Ponovimo vajo z vektorji.
 ```{r}
 # Ustvarimo vektorja "a" z vrednostmi c(1, 2, 3) in "b" z vrednostmi c(3.12, 5.44, 10)
-
 
 # Ustvarimo spremenvljivko "vsota" kot vsoto a in b
 
@@ -302,7 +305,7 @@ R ima posebej operator za ostanek pri deljenju %%, celoštevilsko deljenje %/% i
 
 # Preverimo celoštevilski kvocient deljenja 10 / 3
 
-# Ustvarimo matriko m1 z vrednostmi 1:9 in tremi vrsticami 
+# Ustvarimo matriko m1 z vrednostmi 1:9 in tremi vrstiami 
 # ter matriko m2 z vrednostmi 9:18 in tremi vrsticami
 
 
@@ -329,28 +332,28 @@ V R-u lahko uporabimo tudi operatorje primerjav, ki vrnejo logične vrednosti. P
 # Preverimo, ali vektor c(1, 2, 3) vsebuje 4
 
 ```
-Operatorje primerjav lahko uporabimo tudi za druge podatkovne tipe. Logične vrednosti so interne zapisane kot 1 (TRUE) in 0 (FALSE), tako da jih lahko tudi seštevamo.
+
+Operatorje primerjav lahko uporabimo tudi za druge podatkovne tipe. Logične vrednosti so interno zapisane kot 1 (TRUE) in 0 (FALSE), tako da jih lahko tudi seštevamo.
 ```{r}
 # Previmo, koliko vrednosti a (5) je v vektorju vrednosti = c(1, 3, 5, 4, 5, 7)
-
 
 ```
 
 
 ## "Operatorji" za znake
-Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenljivke. Za združevanje znakov uporabimo funkcijo paste(), kjer s parametrom sep navedemo željeno ločilo
+Za združevanje znakov ne moremo uporabiti enakih operacij kot za številske spremenljivke. Za združevanje znakov uporabimo funkcijo `paste()`, kjer v oklepajih navedemo spremenljivke za združevanje, s parametrom `sep` pa navedemo željeno ločilo. 
 ```{r}
 # Združimo besedi Janez in Novak s presledkom
 
 ```
-Lahko uporabimo tudi funkcijo paste0(), ki ima kot privzeto ločilo "".
+Lahko uporabimo tudi funkcijo `paste0()`, ki ima kot privzeto ločilo "".
 ```{r}
-# Združimo besedi Janez in Novak brez separatorja
+# Združimo besedi Janez in Novak brez ločila
 
 ```
 
 ## Osnovne vgrajene funkcije
-R vključuje kopico vgrajenih funkcij za najrazličnejše pogosto uporabljene operacije. Nekaj osnovnih funkcij vključuje sum() za vsoto, mean() za povprečje, var() za varianco, sd() za standardni odklon, length() za dolžino elementa, min() za minimalno vrednost, max() za maksimalno vrednosti in print() za prikaz. Večina navedenih funkcij deluje na vektorjih, nekatere pa tudi na drugih elementih.
+R vključuje kopico vgrajenih funkcij za najrazličnejše pogosto uporabljene operacije. Nekaj osnovnih funkcij vključuje sum() za vsoto, `mean()` za povprečje, `var()` za varianco, `sd()` za standardni odklon, `length()` za dolžino elementa, `min()` za minimalno vrednost, `max()` za maksimalno vrednosti in `print()` za izpis Večina navedenih funkcij deluje na vektorjih, nekatere pa tudi na drugih elementih.
 ```{r}
 # Ustvarimo vektor "stevila" z vrednostmi 1:10
 
@@ -359,7 +362,6 @@ R vključuje kopico vgrajenih funkcij za najrazličnejše pogosto uporabljene op
 ```
 ```{r}
 #Izračunajmo povprečje in varianco vektorja "stevila" s funkcijo mean() in var()
-
 
 ```
 
@@ -378,8 +380,7 @@ Pri računskih operacijah lahko naletimo tudi na manjkajoče vrednosti, ki jih k
 # Seštejmo vektor vrednosti
 
 ```
-
-R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vrednosti. V pomoči za funkcije lahko preverimo, kako prilagoditi obnašanje funkcije. Funkcija sum() naprimer vključuje logični parameter na.rm, ki določi, ali naj bodo manjkajoče vrednosti odstranjene.
+Funkcije vrnejo manjajočo vrednosti, če element vsebuje manjkajoče vrednosti ne more izračunatinor. vsote ali povprečja. V pomoči za funkcije lahko preverimo, kako prilagoditi obnašanje funkcije. Funkcija `sum()` naprimer vključuje logični parameter `na.rm`, ki določi, ali naj bodo manjkajoče vrednosti odstranjene.
 ```{r}
 # Preverimo pomoč za funkcijo sum()
 
@@ -390,33 +391,34 @@ R vrne manjajočo vrednosti, saj ne more izračunati vsote zaradi manjajočih vr
 
 # Osnove dela z datotekami
 ## Nastavitev delovnega imenika
-V R-u lahko nastavimo delovni imenik s funkcijo setwd(). Ta postane privzeta pot za branje in pisanje datotek.
+Delovni imenik v R-u je privzeta pot za branje in pisanje datotek. V R-u lahko preverimo trenutni delovni imenik s funkcijo `getwd()`.
+
+```{r}
+
+```
+
+Delovni imenik lahko nstavimo s funkcijo `setwd()`.
 ```{r setup, include=FALSE}
 # Nastavimo delovni imenik na lokalno mapo z datotekami
-workingDir <- "VašDelovniImenik"
+workingDir <- "~"
 knitr::opts_knit$set(root.dir = workingDir)
 setwd(workingDir)
 
 ```
 
-S funkcijo getwd() lahko preverimo nastavljen delovni imenik.
-```{r}
-# Preverimo delovni imenik
-
-```
 
 Na primeru bomo pogledali, kako v R prebrati tabelo, izluščiti lastnosti podatkov, preurediti tabelo in zapisati rezultat.
 
 ## Branje datotek
 Različne tipe datotek v R preberemo z različnimi funkcijami oz. različnimi parametri. 
-V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je ZivljenjskaDoba.csv, ki vsebuje podatke zbrane s strani organizacija WHO o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
+V nadaljevanje bomo v R prebrali .csv datoteko ter pregledali vsebino tabele. Ime datoteke je `ZivljenjskaDoba.csv`, ki vsebuje podatke zbrane s strani organizacija WHO o življenjski dobi (ZivDoba) v izbranih državah (Country). Datoteka vsebuje tudi podatke o statusu države (Status), Umrljivosti, zaužitem alkoholu v litrih (Alkohol), odstotek imuniziranih 1-letnikov na hepatitis B (HepatitisB), število primerov ošpic na 1000 prebivalcev (Ospice) in indeks telesne mase (ITM).
 ```{r}
-# Preberimo datoteko ZivljenjskaDoba.csv
+# Preberimo datoteko ZivljenjskaDoba_mali.csv
 
 ```
 
 ## Lastnosti prebranih podatkov
-Najprej preverimo, ali so podatki prebrani pravilno. Ponavadi pogledamo prvih par vrstic s funkcijo head(), zadnjih par s funkcijo tail() in pa strukturo podatkov s funkcijo str().
+Najprej preverimo, ali so podatki prebrani pravilno. Ponavadi pogledamo prvih par vrstic s funkcijo `head()`, zadnjih par s funkcijo `tail()` in pa strukturo podatkov s funkcijo `str()`.
 ```{r}
 # Preverimo prvih par vrstic prebrane tabele s funkcijo head()
 
@@ -430,7 +432,7 @@ Najprej preverimo, ali so podatki prebrani pravilno. Ponavadi pogledamo prvih pa
 
 ```
 
-S funkcijami as.podatkovniTip() lahko spremenimo podatkovni tip stolpcev.
+S funkcijami `as.podatkovniTip()` lahko spremenimo podatkovni tip stolpcev, npr. `as.factor()` ali `as.data.frame()`.
 ```{r}
 # Vidimo, da je leto kodirano kot številska spremenljivka (integer). 
 # S funkcijo as.factor() jo spremenimo v faktor (kategorično spremenljivko).
@@ -438,20 +440,22 @@ S funkcijami as.podatkovniTip() lahko spremenimo podatkovni tip stolpcev.
 ```
 
 
-Preverimo lahko tudi število prebranih stolpcev in vrstic s funkcijama ncol() in nrow().
+Preverimo lahko tudi število prebranih stolpcev in vrstic s funkcijama `ncol()` in `nrow()`.
 ```{r}
 # Preverimo število vrstic in število stolpcev
 
 
 ```
 
-S funkcijo colnames(objekt)[indeksStolpca] lahko preimenujemo stolpce.
+S funkcijo `colnames(objekt)[indeksStolpca]` lahko preimenujemo stolpce.
 ```{r}
 # Preimenujmo stolpec "Country" v "Drzava"
 
+# Preverimo tabelo
+
 ```
 
-Vrstice tabele izberemo z indeksom v oglatih oklepajih. Stolpce tabele lahko prav tako izberemo z indeksom v oglatih oklepajih ali znakom $ in imenom stolpca. Če v indeksu ne navedemo številke stolpca (ali vrstice), R izbere vse stolpce (vrstice).
+Vrstice tabele izberemo z indeksom v oglatih oklepajih, `tabela[indeksVrstice,]`. Stolpce tabele lahko prav tako izberemo z indeksom v oglatih oklepajih `tabela[,indeksStolpca]` ali znakom $ in imenom stolpca, `tabela$stolpec`. Če v indeksu ne navedemo številke stolpca (ali vrstice), R izbere vse stolpce (vrstice).
 ```{r}
 # Izberimo tretjo vrstico tabele zivDoba z indeksom
 
@@ -463,23 +467,24 @@ Vrstice tabele izberemo z indeksom v oglatih oklepajih. Stolpce tabele lahko pra
 ```{r}
 # Izberimo tretji stolpcev tabele zivDoba z imenom (Status)
 
-
 ```
 
-S funkcijo table() preverimo zastopanost posamezne spremenljivke znotraj stolpcev, pri čemer je funkcija bolj uporabna za kategorične spremenljivke.
+
+
+S funkcijo `table()` preverimo zastopanost posamezne spremenljivke znotraj stolpcev, pri čemer je funkcija bolj uporabna za kategorične spremenljivke.
 ```{r}
 # Preverimo, koliko podatkov (vrstic) imamo po državi s funkcijo table()
 
 ```
 
-Za preverjanje stolpcev v numeričnih stolpcev je bolje uporabiti funkcijo summary(). Ta vrne minimalno (in maksimalno) vrednost spremenljivke, prvi (in tretji) kvantil in povprečje.
+Za preverjanje stolpcev v numeričnih stolpcev je bolje uporabiti funkcijo `summary()`. Ta vrne minimalno (in maksimalno) vrednost spremenljivke, prvi (in tretji) kvantil in povprečje.
 ```{r}
 # Preverimo vsebnost stolpca ZivDoba s funkcijo summary
 
 ```
 
 
-Za preverjanje parametrov podatkov lahko uporabimo tudi funkcije kot npr. mean() za povprečje, sd() za standardni odklon, var() za varianco itd.
+Za preverjanje parametrov podatkov lahko uporabimo tudi funkcije kot npr. `mean()` za povprečje, `sd()` za standardni odklon, `var()` za varianco itd.
 ```{r}
 # Preverimo povprečje življenjske dobe preko vseh držav
 
@@ -505,11 +510,10 @@ V tabeli lahko uporabimo operatorje primerjav, da izberemo samo določene vrstic
 
 Tabelam lahko tudi dodajamo in odstranjujemo vrstice in stolpce. Stolpce in vrstice odstranjujemo z znakom - (minus) ter navedbo indeksa.
 ```{r}
-# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba, 
+# Odstranimo stolpec "Polio" z indeksom iz tabele zivDoba
 # novo ustvarjeno tabelo poimenujemo zivDoba_nov
 
 # Preverimo imena stolpcev nove tabele zivDoba_nov s funkcijo colnames()
-
 
 ```
 
@@ -520,7 +524,7 @@ Izbrane vrstice in/ali stolpce lahko tudi zapišemo v nov objekt oz. tabelo.
 
 ```
 ```{r}
-# Preimenuj drugi stolpec iz 'Ospice' v 'ospiceFR'
+# Preimenuj drugi stolpceviz 'Ospice' v 'ospiceFR'
 
 
 ```
@@ -538,7 +542,7 @@ Izbrane vrstice in/ali stolpce lahko tudi zapišemo v nov objekt oz. tabelo.
 
 ```
 
-Tabelam lahko tudi dodajamo vrstice ali stolpce z navedbo indeksa vrstice/stolpca ali imena stolpca ter vsebino.
+Tabelam lahko tudi dodajamo vrstice ali stolpce z navedbo indeksa vrstice/stolpca ali imena stolpca ter vsebino, npr. `tabela$novStolpec <- vrednosti`.
 ```{r}
 # Ustvarimo nov stolpec "Celina" v tabeli zivDoba in mu pripišimo vrednost "Evropa"
 
@@ -550,8 +554,6 @@ V tabelah lahko tudi spreminjamo vrednost. Stolpce, vrstica ali polja, katerim �
 ```{r}
 # Vse države v tabeli zivDob ne ležijo v Evropi, in sicer "Egypt", "Brazil", "Chile" in "Peru"
 # Naprej v vsrticah z vrednostjo "Egypt" spremenimo vrednost v stolpcu "Celina" na "Afrika"
-# 
-
 ```
 ```{r}
 #"Brazil", "Chile" in "Peru" ležijo v Južni Ameriki
@@ -564,7 +566,7 @@ V tabelah lahko tudi spreminjamo vrednost. Stolpce, vrstica ali polja, katerim �
 ```
 
 ## Pisanje podatkov
-S funkcijo write.csv() ali write.table() zapišemo podatke v datoteko.
+S funkcijo `write.csv()` ali `write.table()` zapišemo podatke v datoteko.
 ```{r}
 # S funkcijo write.csv() zapišemo popravljeno tabelo zivDoba v datoteko 
 # ZivljenjskaDoba_popravljena.csv
@@ -572,20 +574,94 @@ S funkcijo write.csv() ali write.table() zapišemo podatke v datoteko.
 
 ```
 
+# Povzemanje podatkov
+Pri prebranih podatkih nas ponavadi najprej zanimajo srednje vrednosti spremenljivk in razpršenost podatkov.
+
+Vsoto lahko izračunamo s funkcijo `sum()`. Pri pregledovanju podatkov v tabelah lahko uporabimo tudi funkciji `rowSums()` in `colSums()`, ki vrneta vsoti vrstic ali stolpcev. Funkciji delujeta le na numeričnih podatkih, zato jih moramo naprej pretvoriti (as.numeric()) ali pa izbrati le numerične vrstice / stolpce.
+
+```{r}
+# S funkcijo colSums() izračunajmo vsoto 4. do 30. stolpca tabele zivDoba
+
+```
+
+```{r}
+# V stolpcih z manjkajočimi vrednostmi funkcija ne more izračunati vsote in vrne NA vrednost. 
+# Obnašanje funkcije lahko prilagodimo z nastavitvijo parametra na.rm (na remove) na TRUE
+
+```
+
+Povprečje lahko izračunamo s funkcijo `mean()`. Enako kot pri vsoti lahko povprečja vrstic ion stolpcev tabele izračunamo s funkcijama `rowMeans()` in `colMeans()`. Funkciji enako delujeta le na numeričnih podatkih.
+```{r}
+# S funkcijo colMeans() izračunajmo vsoto 4. do 30. stolpca tabele zivDoba. 
+# Funkcija naj odstani manjajoče vrednosti
+
+```
+
+Kvantile lahko izračunamo s funkcijo `quantile()`. Privzeto R vrne vrednost za verjetnost 0, 0.25, 0.50, 0.75 in 1. S parametrom probs lahko določimo želene kvantile.
+```{r}
+# S funkcijo quantile() izračunajmo kvantile z verjetnostjo 
+# 0.05 in 0.95 spremenljivke Umrljivost v tabeli zivDoba
+
+```
+
+
+Velikokrat želimo izračunati srednje vrednosti posameznih skupin oz. ravni neke spremenvljivke. Za to lahko uporabimo funkcijo `aggregate()`, ki s poljubno funkcijo agregira podatke glede na podano formulo. Formulo navedemo v obliki odvisnaSpremenljivka ~ neodvisnaSpremenljivka.
+```{r}
+# S funkcijo aggregate izračunajmo povprečno umrljivost v posamezni državi
+
+```
+```{r}
+# S funkcijo aggregate izračunajmo še standardni odklon umrljivost glede na status države in leto
+
+```
+
+## Združevanje podatkov s funkcijami paketa dplyr
+Funkcije paketa dplyr nam omogočajo bolj pregledno in uporabniku prijazno obdelavo podatkov.
+
+S funkcijo `group_by()` lahko ustvarimo skupine v obstoječih tabelah. Sama funkcija podatkov ne spremeni, jih pa interno pripiše specificiranim skupinam.
+```{r}
+# Najprej naložimo paket dplyr
+
+# S funkcijo group_by() združimo podatke tabele zivDoba glede na leto in status 
+# ter jih shranimo v zivDoba_group
+
+# Preverimo nastalo tabelo
+
+```
+
+S funkcijo summarize() lahko nato povzamemo podatke. Če so v podatkih že določene skupine, bo funkcija povzela po le-teh. 
+```{r}
+# S funkcijo summarize() izračunajmo povprećje in standardni odklon spremenljivk 
+# Umrljivost in Alkohol v zivDoba_group. Shranimo podatke v zivDoba_sum
+
+
+
+```
+
+Funkcije paketa dplyr lahko med sabo povežemo v "cevovodno" analizo z operatorjem %>%. Izhodni podatki prejšnje funkcije tako služijo kot vhodni podatki za naslednjo.
+```{r}
+# V enem koraku v zivDoba ustvarimo skupine glede na status in leto 
+# ter izračunamo povprečje spremenljivke HepatitisB
+
+
+
+```
+
 
 # Preurejanje podatkov
 
-S funkcijo cbind() lahko povežemo vektorje v novo tabelo. 
+S funkcijo `cbind()` lahko povežemo vektorje ali tabele v novo tabelo. Pri tem morajo biti vektorji oz. tabele enakih dolžin.
 
 ```{r}
 # S funkcijo cbind() združimo zgoraj ustvarjene vektorje 'ospiceFR', 'ospiceAU' in 'ospiceEG' 
 # v novo tabelo 'ospice'
 
+
 # Preverimo novonastalo tabelo
 
 ```
 
-S funkcijo merge() lahko združujemo tabele na podlagi skupnega ključa.
+S funkcijo `merge()` lahko združujemo tabele na podlagi skupnega ključa. V obeh tabelah mora biti ime stolpca s ključem enako (parameter `by`). V nasprotnem primeru funkcijo navedemo ime ključa v vsaki izmed tabel s parametroma `by.x` in `by.y`, pri čemer je x prva tabela in y druga.
 ```{r}
 # S funkcijo merge() združimo zgoraj ustvarjene vektorje 'ospiceFR' in 'ospiceBR' 
 # na podlagi spremenljivke 'Leto' v novo tabelo 'ospiceMerged'
@@ -594,14 +670,13 @@ S funkcijo merge() lahko združujemo tabele na podlagi skupnega ključa.
 
 ```
 
-S funkcijo melt() iz paketa reshape lahko "vrtimo" tabele: spreminjamo razporeditev podatkov v stolpce in vrstice.
+S funkcijo `melt()` iz paketa reshape lahko "vrtimo" tabele: spreminjamo razporeditev podatkov v stolpce in vrstice.
 ```{r}
-# Najprej naložimo paket reshape
-
-# Recimo, da želimo imeti en stolpec z vsemi vrednostmi za hepatitisB, polio in HIV za vse države,
+# Recimo, da želimo imeti en stolpec z vsemi vrednostmi za hepatitisB, polio in HIV za vse države, 
 # v drugem stolpcu pa bi imeli spremenljivko, za katero bolezen gre
 # Takšno organizacijo podatkov ponavadi potrebujemo za grafično prikazovanje podatkov
 # Najprej izberemo željene stolpce celotne tabele zivDoba - Drzava, Leto, HepatitisB, HIV in Polio
+# Shranimo jih v tabelo bolezni
 
 # Preverimo novonastalo tabelo
 
@@ -612,7 +687,8 @@ S funkcijo melt() iz paketa reshape lahko "vrtimo" tabele: spreminjamo razporedi
 # tako da sta naša ključa Leto in Drzava (stolpca bosta ostala nespremenjena)
 # Novo nastalo tabelo poimenujemo bolezni_melt
 
-# Preverimo novonastalo tabelo s funkcijo head()
+
+# Preveimo novonastalo tabelo s funkcijo head()
 
 ```
 ```{r}
@@ -624,21 +700,21 @@ S funkcijo melt() iz paketa reshape lahko "vrtimo" tabele: spreminjamo razporedi
 ## tidyr funkcije za preurejanje podatkov
 tidyr je paket, ki vsebuje nabor funkcij za urejanje podatkov v R-u (https://tidyr.tidyverse.org/reference/index.html). Teži k "urejenosti" tabel in omogoča tudi podajanje podatkov med funkcijami z operatorjem %>%. Paket tidyr operira s podatkovni strukturo tibble (in ne data frame). Ta je preprostejša in omogoča manj operacij, s čimer pa omogoča hitrejšo odpravo napak in poenostavljenje kode. Paket naložimo z ukazom library(tidyr).
 
-Funkcija pivot_longer() opravlja enako nalogo kot funkcija melt(), ki smo jo uporabili zgoraj. Tabelo preuredi tako, da ima več vrstic in manj stolpcev oz. podaljša tabelo.
+Funkcija `pivot_longer()` opravlja enako nalogo kot funkcija `melt()`, ki smo jo uporabili zgoraj. Tabelo preuredi tako, da ima več vrstic in manj stolpcev oz. podaljša tabelo.
 ```{r}
-# Najprej naložimo paket tidyr
-
 # Ponovimo vajo
-# Sfunkcijo pivot_longer() iz paketa tidyr preuredumo tabelo bolezni (ustvarjena zgoraj), 
+# Sfunkcijo pivot_longer() iz paketa tidyr preuredimo tabelo bolezni (ustvarjena zgoraj), 
 # tako da zberemo vse vredosti za stolpce HepatitisB, HIV in Polio v enem stolpcu
 # Novo nastalo tabelo poimenujemo bolezni_longer
-
+# Če tabele bolezni nimam več, zopet preberemo ZivljnjskaDoba.csv v R in ustvarimo
+# bolezni <- zivDoba[, c("Drzava", "Leto", "HepatitisB", "HIV", "Polio")]
 
 # Preverimo novonastalo tabelo
 
+
 ```
 
-Obratna funkcija je pivot_wider(), ki ustvari tablo z več stolpci in manj vrsticami oz. razširi tabelo.
+Obratna funkcija je `pivot_wider()`, ki ustvari tablo z več stolpci in manj vrsticami oz. razširi tabelo.
 ```{r}
 # S funkcijo pivot_wider() razširimo zgornjo tabelo bolezni_longer, 
 # da bodo podatki za vsako državo v svojem stolpcu
@@ -647,16 +723,16 @@ Obratna funkcija je pivot_wider(), ki ustvari tablo z več stolpci in manj vrsti
 
 ```
 
-S funkcijo separate() združimo vrednosti dveh stolpcev. Enako lahko naredimo tudi s funkcijo paste0(). Nasprotje funkcije unite() je funkcija separate().
+S funkcijo `separate()` združimo vrednosti dveh stolpcev. Enako lahko naredimo tudi s funkcijo `paste0()`. Nasprotje funkcije `unite()` je funkcija `separate()`.
 ```{r}
 # Združimo stolpca Drzava in Leto tabele bolezni z ločilom "_" v nov stolpev DrzavaLeto
 
 ```
 
-Funkcija expand() prikaže vse kombinacije določenih spremenljivk v podatkih.
+Funkcija `expand()` prikaže vse kombinacije določenih spremenljivk v podatkih.
 ```{r}
-# S funkcijo expand() preverimo vse kombinacije spremenljivk Drzava in Leto v tabeli bolezni
-# Rezultat shranimo v bolezni_kombo
+# S funkcijo expand() preverimo vse kombinacije spremenljivk Drzava in Leto 
+# v tabelo bolezni in rezultat shranimo v bolezni_kombo
 
 # Preverimo število kombinacij
 
@@ -665,9 +741,9 @@ Funkcija expand() prikaže vse kombinacije določenih spremenljivk v podatkih.
 ```
 
 
-S funkcijo chop() lahko podatke za določeno vrednost ali kombinacijo spremenljivk shranimo v en element - seznam.
+S funkcijo `chop()` lahko podatke za določeno vrednost ali kombinacijo spremenljivk shranimo v en element - seznam.
 ```{r}
-# Uporabimo funkcijo chop() da vse vrednosti za bolezni po letih shranimo 
+# Uporabimo funkcijo chop(), da vse vrednosti za bolezni po letih shranimo 
 # v eno spremenljivko glede na Drzavo. Rezultat shranimo v tabelo bolezni_chop.
 
 # Preverimo rezultat
@@ -677,6 +753,7 @@ S funkcijo chop() lahko podatke za določeno vrednost ali kombinacijo spremenlji
 # Preverimo dimenzije vstopne in novonastale tabele
 
 
+# Novonastala tabelo je dimenzije
 ```
 
 
@@ -692,7 +769,7 @@ S funkcijo chop() lahko podatke za določeno vrednost ali kombinacijo spremenlji
 # Elementi so seznami z vektorji za vsak nivo preostalih spremenljivk
 ```
 
-Obratna funkcija je funkcija unchop().
+Obratna funkcija je funkcija `unchop()`.
 ```{r}
 # Uporabimo funkcijo unchop() za razširitev podatkov tabele bolezni_chop
 # Chopped tabelo lahko razširimo za posamezno ali vse spremenljivke
@@ -704,7 +781,7 @@ Obratna funkcija je funkcija unchop().
 
 ```
 
-Funkcija pack() sesede stolpce v en stolpec-tabelo s skupnim imenom, ki ga določi uporabnik, in pod-imenom, ki je enako imenu vhodne spremenljivke.
+Funkcija `pack()` sesede stolpce v en stolpec-tabelo s skupnim imenom, ki ga določi uporabnik, in pod-imenom, ki je enako imenu vhodne spremenljivke.
 ```{r}
 # S funkcijo pack() sesedemo stolpce HepatitisB, HIV in Polio v stolpec-tabelo "Bolezni". 
 # Novonastalo tabelo poimenujemo bolezni_pack.
@@ -719,77 +796,6 @@ Funkcija pack() sesede stolpce v en stolpec-tabelo s skupnim imenom, ki ga dolo�
 # Preverimo
 ```
 
-# Povzemanje podatkov
-Pri prebranih podatkih nas ponavadi najprej zanimajo srednje vrednosti spremenljivk in razpršenost podatkov.
-
-Vsoto lahko izračunamo s funkcijo sum(). Pri pregledovanju podatkov v tabelah lahko uporabimo tudi funkciji rowSums() in colSums(), ki vrneta vsoti vrstic ali stolpcev. Funkciji delujeta le na numeričnih podatkih, zato jih moramo naprej pretvoriti (as.numeric()) ali pa izbrati le numerične vrstice / stolpce.
-
-```{r}
-# S funkcijo colSums() izračunajmo vsoto 4. do 13. stolpca tabele zivDoba
-
-```
-
-```{r}
-# vidimo, da v stolpcih z manjkajočimi vrednostmi funkcija ne more izračunati vsote 
-# in vrne NA vrednost. 
-# Obnašanje funkcije lahko prilagodimo z nastavitvijo parametra na.rm (na remove) na TRUE
-
-```
-
-Povprečje lahko izračunamo s funkcijo mean(). Enako kot pri vsoti lahko povprečja vrstic ion stolpcev tabele izračunamo s funkcijama rowMeans() in colMeans(). Funkciji enako delujeta le na numeričnih podatkih.
-```{r}
-# S funkcijo colMeans() izračunajmo vsoto 4. do 30. stolpca tabele zivDoba. 
-# Funkcija naj odstani manjajoče vrednosti
-
-```
-
-Kvantile lahko izračunamo s funkcijo quantile(). Privzeto R vrne vrednost za verjetnost 0, 0.25, 0.50, 0.75 in 1. S parametrom probs lahko določimo želene kvantile.
-```{r}
-# S funkcijo quantile() izračunajmo kvantile z verjetnostjo 
-# 0.05 in 0.95 spremenljivke Umrljivost v tabeli zibDoba
-
-```
-
-Velikokrat želimo izračunati srednje vrednosti posameznih skupin oz. ravni neke spremenvljivke. Za to lahko uporabimo funkcijo aggregate(), ki s poljubno funkcijo agregira podatke glede na podano formulo. Formulo navedemo v obliki odvisnaSpremenljivka ~ neodvisnaSpremenljivka.
-```{r}
-# S funkcijo aggregate izračunajmo povprečno umrljivost v posamezni državi
-
-```
-```{r}
-# S funkcijo aggregate izračunajmo še standardni odklon umrljivost glede na status države in leto
-
-```
-
-## Združevanje podatkov s funkcijami paketa dplyr
-Funkcije paketa dplyr nam omogočajo bolj pregledno in uporabniku prijazno obdelavo podatkov. Prav tako kot tidyr omogoča cevovodno obdelavo podatkov
-
-S funkcijo group_by() lahko ustvarimo skupine v obstoječih tabelah. Sama funkcija podatkov ne spremeni, jih pa interno pripiše specificiranim skupinam.
-```{r}
-# Najprej naložimo paket dplyr
-
-# S funkcijo group_by() združimo podatke tabele zivDoba glede na 
-# leto in status ter jih shranimo v zivDoba_group
-
-# Preverimo nastalo tabelo
-
-```
-
-S funkcijo summarize() lahko nato povzamemo podatke. Če so v podatkih že določene skupine, bo funkcija povzela po le-teh. 
-```{r}
-# S funkcijo summarize() izračunajmo povprećje in standardni odklon 
-# spremenljivk Umrljivost in Alkohol v zivDoba_group. 
-# Shranimo podatke v zivDoba_sum
-
-
-```
-
-Funkcije paketa dplyr lahko med sabo povežemo v "cevovodno" analizo z operatorjem %>%. Izhodni podatki prejšnje funkcije tako služijo kot vhodni podatki za naslednjo.
-```{r}
-# V enem koraku v zivDoba ustvarimo skupine glede na status in leto 
-# ter izračunamo povprečje spremenljivke HepatitisB
-
-
-```
 
 V cevovod lahko združimo funkcije iz različnih paketov.
 ```{r}
@@ -799,7 +805,6 @@ V cevovod lahko združimo funkcije iz različnih paketov.
 # Ponovno ustvarimo tabelo bolezni in naložimo tidyr, če jih nimamo več v delovnem okolju
 
 
-# Preverimo novonastalo tabelo
 
 ```
 
