@@ -274,13 +274,13 @@ Osnovne računske operacije lahko apliciramo na števila ali vektorje (enakih do
 # Ustvarimo spremenljivki "a" z vrednostjo 2 in "b" z vrednostjo 11.2
 a <- 2
 b <- 11.2
-# Ustvarimo spremenvljivko "vsota" kot vsoto a in b
+# Ustvarimo spremenljivko "vsota" kot vsoto a in b
 (vsota <- a + b)
-# Ustvarimo spremenvljivko "razlike" kot vsoto a in b
+# Ustvarimo spremenljivko "razlike" kot vsoto a in b
 (razlika <- a - b)
-# Ustvarimo spremenvljivko "zmnožek" kot vsoto a in b
+# Ustvarimo spremenljivko "zmnožek" kot vsoto a in b
 (zmnožek <- a * b)
-# Ustvarimo spremenvljivko "kvocient" kot vsoto a in b
+# Ustvarimo spremenljivko "kvocient" kot vsoto a in b
 (kvocient <- a / b)
 ```
 Ponovimo vajo z vektorji.
