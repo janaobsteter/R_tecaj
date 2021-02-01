@@ -16,10 +16,16 @@ head(mtcars)
 library(ggplot2)
 head(meritve)
 ggplot(data = meritve, aes(x=Visina, y = Vsebnost)) + geom_point()
-ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Lokacija)) + geom_point()
+ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Lokacija)) + geom_point() + scale_colour_brewer()
+ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Lokacija)) + geom_point() + scale_colour_brewer(palette = "PuRd")
+ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Visina)) + geom_point() + scale_colour_distiller()
+ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Lokacija)) + geom_point(size = 5)
+ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Lokacija)) + geom_point(colour = "red")
 ggplot(data = meritve, aes(x=Visina, y = Vsebnost, colour = Visina)) + geom_point()
 ggplot(data = meritve, aes(x=Leto, y = Visina, colour = Lokacija)) + geom_line()
+ggplot(data = meritve, aes(x=Vsebnost, y = Visina, colour = Lokacija)) + geom_line()
 ggplot(data = meritve, aes(x=Lokacija, y = Visina)) + geom_boxplot()
+ggplot(data = meritve, aes(x= Visina)) + geom_histogram()
 ggplot(data = meritve, aes(x= Visina)) + geom_histogram(bins=50)
 ggplot(data = meritve, aes(x= Visina, fill = Lokacija)) + geom_histogram(bins=50)
 meritve$Leto <- as.factor(meritve$Leto)
@@ -35,8 +41,8 @@ ggplot(data = meritve, aes(x = Vrednost1, y = Vrednost2, colour = Vrednost1)) + 
 ggplot(data = meritve, aes(x = Vrednost1, y = Vrednost2, colour = Skupina)) + geom_point(colour="red")
 ggplot(data = meritve, aes(x = Vrednost1, y = Vrednost2, colour = Vrednost2)) + geom_point() + 
   scale_colour_fermenter(palette = "YlOrRd")
-ggplot(data = meritve, aes(x = Vrednost1, y = Vrednost2, colour = Skupina)) + 
-  #geom_point() + scale_colour_manual("Skupine", values = c("red", "green", "black", "blue", "yellow"))
+ggplot(data = meritve, aes(x = Visina, y = Vsebnost, colour = Lokacija)) + 
+  #geom_point() + scale_colour_manual("Lokacija", values = c("red", "green", "black", "blue", "yellow"))
   geom_point() + scale_colour_manual("Skupine", values = c("#d14996", "#b7e34f",  "#4ab6cf", "#e39f46"))
 
 ggplot(data = meritve, aes(x = Skupina, y = Vrednost1)) + geom_boxplot()
@@ -64,11 +70,14 @@ meritve <- data.frame(ID = 1:1000, Vrednost1 = rnorm(1000), Vrednost2 = rnorm(10
 
 head(meritve)
 table(meritve$Skupina, meritve$Leto)
-povpV1 <- meritve %>% group_by(Skupina, Leto) %>% 
-                      summarize(Povprecje = mean(Vrednost1), 
-                                StOdklon = sd(Vrednost1))
-povpV1$Leto <- as.factor(povpV1$Leto)
-ggplot(data = povpV1, aes(x=Skupina, y = Povprecje, fill = Leto)) + geom_col()
+povpVisina <- meritve %>% group_by(Lokacija, Leto) %>% 
+                      summarize(Povprecje = mean(Visina), 
+                                 StOdklon = sd(Visina))
+povpVisina$Leto <- as.factor(povpV1$Leto)
+head(povpVisina)
+ggplot(data = as.data.frame(povpVisina), aes(x = Leto, y = Povprecje, group= Lokacija, colour = Lokacija)) + geom_line() + geom_point()
+ggplot(data = povpVisina[povpV1$Leto %in% 2001:2002,], aes(x=Lokacija, y = Povprecje, fill = Leto)) + geom_col()
+ggplot(data =  povpVisina[povpV1$Leto %in% 2001:2002,], aes(x=Lokacija, y = Povprecje, fill = Leto)) + geom_col(position="dodge")
 povpV1
 
 meritve
@@ -83,4 +92,4 @@ meritve1_sd$Skupina <- as.factor(meritve1_sd$Skupina)
 table(meritve1_sd$Leto, meritve1_sd$Skupina)
 head(meritve1_sd)
 
-ggplot(data = meritve1_sd, aes(x = Leto, y = povpTemp, group = Skupina, colour = Skupina)) + geom_line() + geom_ribbon(aes(ymin = povpTemp - soTemp, ymax = povpTemp + soTemp, fill = Skupina), alpha = 0.2, linetype = 0)
+ggplot(data = povpVisina, aes(x = Leto, y = Povprecje, group = Lokacija, colour = Lokacija)) + geom_line() + geom_ribbon(aes(ymin = Povprecje - StOdklon, ymax = Povprecje + StOdklon, fill = Lokacija), alpha = 0.2, linetype = 0)
